@@ -1,0 +1,18 @@
+GET http://localhost:3000/chart
+
+###
+POST http://localhost:3000/chart
+Content-Type: application/json
+
+{
+    "title": "金融大数据",
+    "user": "1234"
+}
+
+###
+
+GET http://localhost:3000/demo/percent
+
+###
+
+GET http://localhost:3000/demo/pv
