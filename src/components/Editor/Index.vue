@@ -159,6 +159,7 @@ export default {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  background: url('~@/assets/img/bg/point.png');
 }
 
 .topbar-view {
@@ -196,7 +197,6 @@ export default {
 }
 
 .main-view {
-  background: rgb(42,46,51);
   padding: 60px 300px 0 50px;
   overflow: hidden;
   height: calc(100vh - 60px);

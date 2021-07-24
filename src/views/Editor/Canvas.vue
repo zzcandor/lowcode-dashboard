@@ -21,7 +21,7 @@
       @click.self="handleActivated(-1)"
     >
       <vue-ruler-tool
-        :content-layout="{left:250,top:100}"
+        :content-layout="{left:250,top:50}"
         :is-scale-revise="true"
         :v-model="presetLine"
         :position="'absolute'"

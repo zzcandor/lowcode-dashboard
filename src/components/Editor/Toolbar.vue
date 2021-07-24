@@ -53,6 +53,10 @@ export default {
           key: 'tools',
           name: '组件',
         },
+        {
+          key: 'picture',
+          name: '素材',
+        },
       ],
       showCollapsePanel: false,
     };
