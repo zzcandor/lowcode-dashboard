@@ -1,3 +1,4 @@
+
 <template >
   <div class="panel">
     <div class="title" v-if="panelKey === 'layers'">
@@ -170,6 +171,11 @@ export default {
               name: "边框",
               img: require("@/assets/img/charts/border.png"),
             },
+             {
+              id: "mask",
+              name: "蒙板",
+              img: require("@/assets/img/mask/mask-icon.png"),
+            },
           ],
         },
       },
@@ -227,6 +233,15 @@ export default {
             opacity: 1,
           },
         };
+      } else if (item.id == "mask") {
+        initData = {
+          type: "mask",
+          datacon: {
+            borderId: 1,
+            opacity: 1,
+          },
+          bgcolor: "rgba(192,196,204,1)",
+        };
       } else {
         initData = {
           type: "chart",
@@ -269,8 +284,8 @@ export default {
         y: 10,
         w: 400,
         h: 200,
-        bgcolor: "rgba(0, 0, 0, 0)",
-        active: false,
+        bgcolor: initData.bgcolor || "rgba(0,0,0,0)",
+        active: true,
         data: initData,
       };
       this.$parent.$parent.addComponent(component);
