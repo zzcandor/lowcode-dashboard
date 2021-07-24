@@ -29,6 +29,7 @@
     "vue-draggable-resizable": "^2.0.0-rc1",
     "vue-json-editor": "^1.3.1",
     "vue-router": "^3.0.1",
+    "vue-ruler-tool": "^1.2.4",
     "vuedraggable": "^2.20.0",
     "vuex": "^3.0.1",
     "xlsx": "^0.14.3"
@@ -58,7 +59,10 @@
       "@vue/airbnb"
     ],
     "rules": {
-      "linebreak-style": ["off", "windows"],
+      "linebreak-style": [
+        "off",
+        "windows"
+      ],
       "singleQuote": false
     },
     "parserOptions": {

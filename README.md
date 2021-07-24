@@ -66,6 +66,7 @@ node ./server/app.js
 * [mauricius / vue-draggable-resizable](https://github.com/mauricius/vue-draggable-resizable)
 * [kirillmurashov / vue-drag-resize](https://github.com/kirillmurashov/vue-drag-resize)
 * [koajs / koa](https://github.com/koajs/koa)
+* [标尺工具 vue-ruler-tool](https://github.com/gorkys/vue-ruler-tool)
 
 ## LICENSE
 

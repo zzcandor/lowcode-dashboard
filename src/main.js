@@ -7,20 +7,23 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 // import './assets/font/iconfont.css';
 import dayjs from 'dayjs';
+import VueRulerTool from 'vue-ruler-tool';
 import App from './App.vue';
 import router from './router';
 import store from './store';
 import http from './http';
+
+
 // import initMock from '../mock';
 
 // 需要 mock 数据时请打开注释
 // initMock();
-
 Vue.config.productionTip = false;
 Vue.prototype.$http = http;
 Vue.prototype.$dayjs = dayjs;
 Vue.use(VCharts);
 Vue.use(ElementUI);
+Vue.component('VueRulerTool', VueRulerTool);
 Vue.use(dayjs);
 Vue.component('vue-draggable-resizable', VueDraggableResizable);
 Vue.component('vue-drag-resize', VueDragResize);
