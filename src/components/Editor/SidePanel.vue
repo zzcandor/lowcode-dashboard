@@ -18,6 +18,7 @@
         @start="handleLayerListDragStart"
         @end="handleLayerListDragEnd"
         ghost-class="ghost"
+        :sort="true"
       >
         <transition-group type="transition" :name="!drag ? 'flip-list' : null">
           <div
@@ -37,15 +38,27 @@
       </draggable>
     </div>
     <div class="component-list" v-else-if="panelKey !== ''">
-      <div
-        class="list-item"
-        v-for="(item, index) in componentList[panelKey].children"
-        @click="handleAddComponent(item)"
-        :key="index"
+      <draggable
+        v-model="componentList[panelKey].children"
+        :sort="false"
+        class="drawing-chart-board"
+        :group="{
+          name: 'componentsGroup',
+          pull: 'clone',
+          put: false
+        }"
+        @clone="cloneComponent"
       >
-        <div class="img-wrapper"><img :src="item.img" /></div>
-        <div class="name">{{ item.name }}</div>
-      </div>
+        <div
+          class="list-item"
+          v-for="(item, index) in componentList[panelKey].children"
+          @click="handleAddComponent(item)"
+          :key="index"
+        >
+          <div class="img-wrapper"><img :src="item.img" /></div>
+          <div class="name">{{ item.name }}</div>
+        </div>
+      </draggable>
     </div>
   </div>
 </template>
@@ -196,7 +209,12 @@ export default {
       this.drag = false;
       this.$parent.$parent.setActiveComponentByIndex(e.newIndex);
     },
-    handleAddComponent(item) {
+    cloneComponent(origin) {
+      const list = this.componentList[this.panelKey].children
+      const item = list[origin.oldIndex]
+      this.handleAddComponent(item)
+    },
+    handleAddComponent(item) {      
       let initData = {};
       if (item.id == "text") {
         initData = {
