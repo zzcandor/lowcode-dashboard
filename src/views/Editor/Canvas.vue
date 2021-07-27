@@ -89,6 +89,14 @@
                     :settings="item.data.settings"
                     @ready-once="generateData(item)"
                   ></ve-map>
+                  <ve-gauge
+                    v-if="item.data.settings.type == 'gauge'"
+                    :width="item.w + 'px'"
+                    :height="item.h + 'px'"
+                    :data="item.data.generated"
+                    :settings="item.data.settings"
+                    @ready-once="generateData(item)"
+                  ></ve-gauge>
                   <ve-liquidfill
                     v-else-if="item.data.settings.type == 'liquidfill'"
                     :width="item.w + 'px'"
