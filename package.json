@@ -35,13 +35,13 @@
     "xlsx": "^0.14.3"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.5.0",
-    "@vue/cli-plugin-eslint": "^3.5.0",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "^3.5.0",
     "@vue/eslint-config-airbnb": "^4.0.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.8.0",
-    "eslint-plugin-vue": "^5.0.0",
+    "eslint-plugin-vue": "^6.2.2",
     "gh-pages": "^2.0.1",
     "node-sass": "^4.13.1",
     "pug": "^2.0.3",
@@ -63,7 +63,9 @@
         "off",
         "windows"
       ],
-      "singleQuote": false
+      "singleQuote": false,
+      "no-param-reassign": 0,
+      "no-underscore-dangle": 0
     },
     "parserOptions": {
       "parser": "babel-eslint"
