@@ -65,10 +65,10 @@
 
 <script>
 import draggable from 'vuedraggable';
-/* eslint-disable */
+import chartsConfig, { gaugeConfig } from '@/config/charts';
 
 export default {
-  props: ["panelKey"],
+  props: ['panelKey'],
   components: {
     draggable,
   },
@@ -77,42 +77,42 @@ export default {
       drag: false,
       componentList: {
         chart: {
-          name: "图表",
+          name: '图表',
           children: [
             {
-              id: "line",
-              name: "折线图",
-              img: require("@/assets/img/charts/line.png"),
+              id: 'line',
+              name: '折线图',
+              img: require('@/assets/img/charts/line.png'),
             },
             {
-              id: "histogram",
-              name: "柱状图",
-              img: require("@/assets/img/charts/histogram.png"),
+              id: 'histogram',
+              name: '柱状图',
+              img: require('@/assets/img/charts/histogram.png'),
             },
             {
-              id: "bar",
-              name: "条形图",
-              img: require("@/assets/img/charts/bar.png"),
+              id: 'bar',
+              name: '条形图',
+              img: require('@/assets/img/charts/bar.png'),
             },
             {
-              id: "pie",
-              name: "饼图",
-              img: require("@/assets/img/charts/pie.png"),
+              id: 'pie',
+              name: '饼图',
+              img: require('@/assets/img/charts/pie.png'),
             },
             {
-              id: "ring",
-              name: "环状图",
-              img: require("@/assets/img/charts/ring.png"),
+              id: 'ring',
+              name: '环状图',
+              img: require('@/assets/img/charts/ring.png'),
             },
             {
-              id: "funnel",
-              name: "漏斗图",
-              img: require("@/assets/img/charts/funnel.png"),
+              id: 'funnel',
+              name: '漏斗图',
+              img: require('@/assets/img/charts/funnel.png'),
             },
             {
-              id: "radar",
-              name: "雷达图",
-              img: require("@/assets/img/charts/radar.png"),
+              id: 'radar',
+              name: '雷达图',
+              img: require('@/assets/img/charts/radar.png'),
             },
             // {
             //   id: "map-world",
@@ -120,9 +120,9 @@ export default {
             //   img: require("@/assets/img/charts/map-world.png")
             // },
             {
-              id: "map",
-              name: "中国地图",
-              img: require("@/assets/img/charts/map-china.png"),
+              id: 'map',
+              name: '中国地图',
+              img: require('@/assets/img/charts/map-china.png'),
             },
             // {
             //   id: "sankey",
@@ -139,15 +139,15 @@ export default {
             //   name: "K线图",
             //   img: require("@/assets/img/charts/candle.png")
             // },
-            // {
-            //   id: "gauge",
-            //   name: "仪表盘",
-            //   img: require("@/assets/img/charts/gauge.png")
-            // },
             {
-              id: "liquidfill",
-              name: "水球图",
-              img: require("@/assets/img/charts/liquidfill.png"),
+              id: 'gauge',
+              name: '仪表盘',
+              img: require('@/assets/img/charts/gauge.png'),
+            },
+            {
+              id: 'liquidfill',
+              name: '水球图',
+              img: require('@/assets/img/charts/liquidfill.png'),
             },
             // {
             //   id: "wordcloud",
@@ -157,37 +157,37 @@ export default {
           ],
         },
         text: {
-          name: "文本",
+          name: '文本',
           children: [
             {
-              id: "text",
-              name: "文本",
-              img: require("@/assets/img/charts/text.png"),
+              id: 'text',
+              name: '文本',
+              img: require('@/assets/img/charts/text.png'),
             },
           ],
         },
         picture: {
-          name: "图片",
+          name: '图片',
           children: [
             {
-              id: "image",
-              name: "图片",
-              img: require("@/assets/img/charts/image.png"),
+              id: 'image',
+              name: '图片',
+              img: require('@/assets/img/charts/image.png'),
             },
           ],
         },
         tools: {
-          name: "组件",
+          name: '组件',
           children: [
             {
-              id: "border",
-              name: "边框",
-              img: require("@/assets/img/charts/border.png"),
+              id: 'border',
+              name: '边框',
+              img: require('@/assets/img/charts/border.png'),
             },
-             {
-              id: "mask",
-              name: "蒙板",
-              img: require("@/assets/img/mask/mask-icon.png"),
+            {
+              id: 'mask',
+              name: '蒙板',
+              img: require('@/assets/img/mask/mask-icon.png'),
             },
           ],
         },
@@ -210,99 +210,68 @@ export default {
       this.$parent.$parent.setActiveComponentByIndex(e.newIndex);
     },
     cloneComponent(origin) {
-      const list = this.componentList[this.panelKey].children
-      const item = list[origin.oldIndex]
-      this.handleAddComponent(item)
+      const list = this.componentList[this.panelKey].children;
+      const item = list[origin.oldIndex];
+      this.handleAddComponent(item);
     },
-    handleAddComponent(item) {      
+    handleAddComponent(item) {
       let initData = {};
-      if (item.id == "text") {
+      if (item.id === 'text') {
         initData = {
-          type: "text",
+          type: 'text',
           datacon: {
-            text: "请输入文字",
-            color: "#000000",
+            text: '请输入文字',
+            color: '#000000',
             fontSize: 48,
-            fontFamily: "ZCOOL QingKe HuangYou",
+            fontFamily: 'ZCOOL QingKe HuangYou',
             bold: false,
             italic: false,
             stroke: false,
-            strokeColor: "#ffffff",
+            strokeColor: '#ffffff',
             strokeSize: 2,
             shadow: false,
-            shadowColor: "#ff0000",
+            shadowColor: '#ff0000',
             shadowBlur: 10,
           },
         };
-      } else if (item.id == "image") {
+      } else if (item.id === 'image') {
         initData = {
-          type: "image",
+          type: 'image',
           datacon: {
-            img: "",
-            imgSize: "cover",
+            img: '',
+            imgSize: 'cover',
             opacity: 1,
           },
         };
-      } else if (item.id == "border") {
+      } else if (item.id === 'border') {
         initData = {
-          type: "border",
-          datacon: {
-            borderId: 1,
-            opacity: 1,
-          },
-        };
-      } else if (item.id == "mask") {
-        initData = {
-          type: "mask",
+          type: 'border',
           datacon: {
             borderId: 1,
             opacity: 1,
           },
-          bgcolor: "rgba(192,196,204,1)",
         };
+      } else if (item.id === 'mask') {
+        initData = {
+          type: 'mask',
+          datacon: {
+            borderId: 1,
+            opacity: 1,
+          },
+          bgcolor: 'rgba(192,196,204,1)',
+        };
+      } else if (item.id === 'gauge') {
+        initData = gaugeConfig;
       } else {
-        initData = {
-          type: "chart",
-          settings: {
-            type: item.id,
-          },
-          datacon: {
-            type: "raw",
-            connectId: "",
-            data: {
-              columns: ["日期", "访问用户"],
-              rows: [
-                { 日期: "1月1日", 访问用户: 1523 },
-                { 日期: "1月2日", 访问用户: 1223 },
-                { 日期: "1月3日", 访问用户: 2123 },
-                { 日期: "1月4日", 访问用户: 4123 },
-                { 日期: "1月5日", 访问用户: 3123 },
-                { 日期: "1月6日", 访问用户: 7123 },
-              ],
-            },
-            getUrl: "",
-            interval: 2,
-          },
-          generated: {
-            columns: ["日期", "访问用户"],
-            rows: [
-              { 日期: "1月1日", 访问用户: 1523 },
-              { 日期: "1月2日", 访问用户: 1223 },
-              { 日期: "1月3日", 访问用户: 2123 },
-              { 日期: "1月4日", 访问用户: 4123 },
-              { 日期: "1月5日", 访问用户: 3123 },
-              { 日期: "1月6日", 访问用户: 7123 },
-            ],
-          },
-        };
+        initData = chartsConfig(item.id);
       }
       const component = {
-        name: "新建图层" + (this.chartData.elements.length + 1),
+        name: `新建图层${this.chartData.elements.length + 1}`,
         x: 10,
         y: 10,
         w: 400,
         h: 200,
-        bgcolor: initData.bgcolor || "rgba(0,0,0,0)",
+        bgcolor: initData.bgcolor || 'rgba(0,0,0,0)',
         active: true,
         data: initData,
       };
@@ -336,18 +305,18 @@ export default {
 
   &::-webkit-scrollbar {
     // display: block;
-    width: 4px; 
-    height: 6px; 
+    width: 4px;
+    height: 6px;
     // background: #000;
   }
 
-  &::-webkit-scrollbar-thumb {  
-    border-radius: 10px; 
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
     background: #3a4659;
     border: none;
-    width: 4px; 
-    height: 4px; 
-  }  
+    width: 4px;
+    height: 4px;
+  }
 
   .list-item {
     display: inline-block;
