@@ -1,6 +1,6 @@
 <template>
-<div class="panel">
-  <!-- .canvas-view
+    <div class="panel">
+        <!-- .canvas-view
   vue-draggable-resizable(
     :w="100"
     :h="80"
@@ -9,38 +9,38 @@
     class-name-dragging="canvas-box-dragging"
     :resizable="false")
   -->
-  <div class="control-bar"><i class="btn el-icon-minus" @click="zoomOut"></i>
-    <div class="scale-mount">{{scale * 100}}%</div>
-    <i class="btn el-icon-plus" @click="zoomIn"></i>
-  </div>
-</div>
+        <div class="control-bar"><i class="btn el-icon-minus" @click="zoomOut" />
+            <div class="scale-mount">{{ scale * 100 }}%</div>
+            <i class="btn el-icon-plus" @click="zoomIn" />
+        </div>
+    </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      scale: 0.7,
-    };
-  },
-  watch: {
-    scale() {
-      this.$emit('update:scale', this.scale);
+    data() {
+        return {
+            scale: 0.7,
+        }
     },
-  },
-  methods: {
-    zoomOut() {
-      if (this.scale > 0.1) {
-        this.scale = parseFloat((this.scale - 0.1).toFixed(1));
-      }
+    watch: {
+        scale() {
+            this.$emit('update:scale', this.scale)
+        },
     },
-    zoomIn() {
-      if (this.scale < 1) {
-        this.scale = parseFloat((this.scale + 0.1).toFixed(1));
-      }
+    methods: {
+        zoomOut() {
+            if (this.scale > 0.1) {
+                this.scale = parseFloat((this.scale - 0.1).toFixed(1))
+            }
+        },
+        zoomIn() {
+            if (this.scale < 1) {
+                this.scale = parseFloat((this.scale + 0.1).toFixed(1))
+            }
+        },
     },
-  },
-};
+}
 </script>
 
 <style lang="scss" scoped>

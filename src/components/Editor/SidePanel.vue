@@ -1,70 +1,68 @@
 
-<template >
-  <div class="panel">
-    <div class="title" v-if="panelKey === 'layers'">
-      <span>图层 ({{ chartData.elements.length }})</span>
-    </div>
-    <div class="title" v-else-if="panelKey !== ''">
-      <span
-        >{{ componentList[panelKey].name }} ({{
-          componentList[panelKey].children.length
-        }})
-      </span
-      >
-    </div>
-    <div class="layer-list" v-if="panelKey === 'layers'">
-      <draggable
-        v-model="chartData.elements"
-        @start="handleLayerListDragStart"
-        @end="handleLayerListDragEnd"
-        ghost-class="ghost"
-        :sort="true"
-      >
-        <transition-group type="transition" :name="!drag ? 'flip-list' : null">
-          <div
-            class="list-item"
-            v-for="(item, index) in chartData.elements"
-            :key="item.name"
-            @click="$parent.$parent.setActiveComponentByIndex(index)"
-            :class="{ active: index === $parent.$parent.currentElementIndex }"
-          >
-            <div class="name">{{ item.name }}</div>
-            <i
-              class="el-icon-delete icon"
-              @click="handleDeleteComponent(index)"
-            ></i>
-          </div>
-        </transition-group>
-      </draggable>
-    </div>
-    <div class="component-list" v-else-if="panelKey !== ''">
-      <draggable
-        v-model="componentList[panelKey].children"
-        :sort="false"
-        class="drawing-chart-board"
-        :group="{
-          name: 'componentsGroup',
-          pull: 'clone',
-          put: false
-        }"
-        @clone="cloneComponent"
-      >
-        <div
-          class="list-item"
-          v-for="(item, index) in componentList[panelKey].children"
-          @click="handleAddComponent(item)"
-          :key="index"
-        >
-          <div class="img-wrapper"><img :src="item.img" /></div>
-          <div class="name">{{ item.name }}</div>
+<template>
+    <div class="panel">
+        <div v-if="panelKey === 'layers'" class="title">
+            <span>图层 ({{ chartData.elements.length }})</span>
         </div>
-      </draggable>
+        <div v-else-if="panelKey !== ''" class="title">
+            <span>{{ componentList[panelKey].name }} ({{
+                componentList[panelKey].children.length
+            }})
+            </span>
+        </div>
+        <div v-if="panelKey === 'layers'" class="layer-list">
+            <draggable
+                v-model="chartData.elements"
+                ghost-class="ghost"
+                :sort="true"
+                @start="handleLayerListDragStart"
+                @end="handleLayerListDragEnd"
+            >
+                <transition-group type="transition" :name="!drag ? 'flip-list' : null">
+                    <div
+                        v-for="(item, index) in chartData.elements"
+                        :key="item.name"
+                        class="list-item"
+                        :class="{ active: index === $parent.$parent.currentElementIndex }"
+                        @click="$parent.$parent.setActiveComponentByIndex(index)"
+                    >
+                        <div class="name">{{ item.name }}</div>
+                        <i
+                            class="el-icon-delete icon"
+                            @click="handleDeleteComponent(index)"
+                        />
+                    </div>
+                </transition-group>
+            </draggable>
+        </div>
+        <div v-else-if="panelKey !== ''" class="component-list">
+            <draggable
+                v-model="componentList[panelKey].children"
+                :sort="false"
+                class="drawing-chart-board"
+                :group="{
+                    name: 'componentsGroup',
+                    pull: 'clone',
+                    put: false
+                }"
+                @clone="cloneComponent"
+            >
+                <div
+                    v-for="(item, index) in componentList[panelKey].children"
+                    :key="index"
+                    class="list-item"
+                    @click="handleAddComponent(item)"
+                >
+                    <div class="img-wrapper"><img :src="item.img" /></div>
+                    <div class="name">{{ item.name }}</div>
+                </div>
+            </draggable>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
-import draggable from 'vuedraggable';
+import draggable from 'vuedraggable'
 /* eslint-disable */
 
 export default {
@@ -214,7 +212,7 @@ export default {
       const item = list[origin.oldIndex]
       this.handleAddComponent(item)
     },
-    handleAddComponent(item) {      
+    handleAddComponent(item) {
       let initData = {};
       if (item.id == "text") {
         initData = {
@@ -336,18 +334,18 @@ export default {
 
   &::-webkit-scrollbar {
     // display: block;
-    width: 4px; 
-    height: 6px; 
+    width: 4px;
+    height: 6px;
     // background: #000;
   }
 
-  &::-webkit-scrollbar-thumb {  
-    border-radius: 10px; 
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
     background: #3a4659;
     border: none;
-    width: 4px; 
-    height: 4px; 
-  }  
+    width: 4px;
+    height: 4px;
+  }
 
   .list-item {
     display: inline-block;
