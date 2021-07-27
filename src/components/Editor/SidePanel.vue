@@ -1,74 +1,72 @@
 
-<template >
-  <div class="panel">
-    <div class="title" v-if="panelKey === 'layers'">
-      <span>图层 ({{ chartData.elements.length }})</span>
-    </div>
-    <div class="title" v-else-if="panelKey !== ''">
-      <span
-        >{{ componentList[panelKey].name }} ({{
-          componentList[panelKey].children.length
-        }})
-      </span
-      >
-    </div>
-    <div class="layer-list" v-if="panelKey === 'layers'">
-      <draggable
-        v-model="chartData.elements"
-        @start="handleLayerListDragStart"
-        @end="handleLayerListDragEnd"
-        ghost-class="ghost"
-        :sort="true"
-      >
-        <transition-group type="transition" :name="!drag ? 'flip-list' : null">
-          <div
-            class="list-item"
-            v-for="(item, index) in chartData.elements"
-            :key="item.name"
-            @click="$parent.$parent.setActiveComponentByIndex(index)"
-            :class="{ active: index === $parent.$parent.currentElementIndex }"
-          >
-            <div class="name">{{ item.name }}</div>
-            <i
-              class="el-icon-delete icon"
-              @click="handleDeleteComponent(index)"
-            ></i>
-          </div>
-        </transition-group>
-      </draggable>
-    </div>
-    <div class="component-list" v-else-if="panelKey !== ''">
-      <draggable
-        v-model="componentList[panelKey].children"
-        :sort="false"
-        class="drawing-chart-board"
-        :group="{
-          name: 'componentsGroup',
-          pull: 'clone',
-          put: false
-        }"
-        @clone="cloneComponent"
-      >
-        <div
-          class="list-item"
-          v-for="(item, index) in componentList[panelKey].children"
-          @click="handleAddComponent(item)"
-          :key="index"
-        >
-          <div class="img-wrapper"><img :src="item.img" /></div>
-          <div class="name">{{ item.name }}</div>
+<template>
+    <div class="panel">
+        <div v-if="panelKey === 'layers'" class="title">
+            <span>图层 ({{ chartData.elements.length }})</span>
         </div>
-      </draggable>
+        <div v-else-if="panelKey !== ''" class="title">
+            <span>{{ componentList[panelKey].name }} ({{
+                componentList[panelKey].children.length
+            }})
+            </span>
+        </div>
+        <div v-if="panelKey === 'layers'" class="layer-list">
+            <draggable
+                v-model="chartData.elements"
+                ghost-class="ghost"
+                :sort="true"
+                @start="handleLayerListDragStart"
+                @end="handleLayerListDragEnd"
+            >
+                <transition-group type="transition" :name="!drag ? 'flip-list' : null">
+                    <div
+                        v-for="(item, index) in chartData.elements"
+                        :key="item.name"
+                        class="list-item"
+                        :class="{ active: index === $parent.$parent.currentElementIndex }"
+                        @click="$parent.$parent.setActiveComponentByIndex(index)"
+                    >
+                        <div class="name">{{ item.name }}</div>
+                        <i
+                            class="el-icon-delete icon"
+                            @click="handleDeleteComponent(index)"
+                        />
+                    </div>
+                </transition-group>
+            </draggable>
+        </div>
+        <div v-else-if="panelKey !== ''" class="component-list">
+            <draggable
+                v-model="componentList[panelKey].children"
+                :sort="false"
+                class="drawing-chart-board"
+                :group="{
+                    name: 'componentsGroup',
+                    pull: 'clone',
+                    put: false
+                }"
+                @clone="cloneComponent"
+            >
+                <div
+                    v-for="(item, index) in componentList[panelKey].children"
+                    :key="index"
+                    class="list-item"
+                    @click="handleAddComponent(item)"
+                >
+                    <div class="img-wrapper"><img :src="item.img" /></div>
+                    <div class="name">{{ item.name }}</div>
+                </div>
+            </draggable>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
-import draggable from 'vuedraggable';
-import chartsConfig, { gaugeConfig } from '@/config/charts';
+import draggable from 'vuedraggable'
+/* eslint-disable */
 
 export default {
-  props: ['panelKey'],
+  props: ["panelKey"],
   components: {
     draggable,
   },
@@ -77,42 +75,42 @@ export default {
       drag: false,
       componentList: {
         chart: {
-          name: '图表',
+          name: "图表",
           children: [
             {
-              id: 'line',
-              name: '折线图',
-              img: require('@/assets/img/charts/line.png'),
+              id: "line",
+              name: "折线图",
+              img: require("@/assets/img/charts/line.png"),
             },
             {
-              id: 'histogram',
-              name: '柱状图',
-              img: require('@/assets/img/charts/histogram.png'),
+              id: "histogram",
+              name: "柱状图",
+              img: require("@/assets/img/charts/histogram.png"),
             },
             {
-              id: 'bar',
-              name: '条形图',
-              img: require('@/assets/img/charts/bar.png'),
+              id: "bar",
+              name: "条形图",
+              img: require("@/assets/img/charts/bar.png"),
             },
             {
-              id: 'pie',
-              name: '饼图',
-              img: require('@/assets/img/charts/pie.png'),
+              id: "pie",
+              name: "饼图",
+              img: require("@/assets/img/charts/pie.png"),
             },
             {
-              id: 'ring',
-              name: '环状图',
-              img: require('@/assets/img/charts/ring.png'),
+              id: "ring",
+              name: "环状图",
+              img: require("@/assets/img/charts/ring.png"),
             },
             {
-              id: 'funnel',
-              name: '漏斗图',
-              img: require('@/assets/img/charts/funnel.png'),
+              id: "funnel",
+              name: "漏斗图",
+              img: require("@/assets/img/charts/funnel.png"),
             },
             {
-              id: 'radar',
-              name: '雷达图',
-              img: require('@/assets/img/charts/radar.png'),
+              id: "radar",
+              name: "雷达图",
+              img: require("@/assets/img/charts/radar.png"),
             },
             // {
             //   id: "map-world",
@@ -120,9 +118,9 @@ export default {
             //   img: require("@/assets/img/charts/map-world.png")
             // },
             {
-              id: 'map',
-              name: '中国地图',
-              img: require('@/assets/img/charts/map-china.png'),
+              id: "map",
+              name: "中国地图",
+              img: require("@/assets/img/charts/map-china.png"),
             },
             // {
             //   id: "sankey",
@@ -139,15 +137,15 @@ export default {
             //   name: "K线图",
             //   img: require("@/assets/img/charts/candle.png")
             // },
+            // {
+            //   id: "gauge",
+            //   name: "仪表盘",
+            //   img: require("@/assets/img/charts/gauge.png")
+            // },
             {
-              id: 'gauge',
-              name: '仪表盘',
-              img: require('@/assets/img/charts/gauge.png'),
-            },
-            {
-              id: 'liquidfill',
-              name: '水球图',
-              img: require('@/assets/img/charts/liquidfill.png'),
+              id: "liquidfill",
+              name: "水球图",
+              img: require("@/assets/img/charts/liquidfill.png"),
             },
             // {
             //   id: "wordcloud",
@@ -157,37 +155,37 @@ export default {
           ],
         },
         text: {
-          name: '文本',
+          name: "文本",
           children: [
             {
-              id: 'text',
-              name: '文本',
-              img: require('@/assets/img/charts/text.png'),
+              id: "text",
+              name: "文本",
+              img: require("@/assets/img/charts/text.png"),
             },
           ],
         },
         picture: {
-          name: '图片',
+          name: "图片",
           children: [
             {
-              id: 'image',
-              name: '图片',
-              img: require('@/assets/img/charts/image.png'),
+              id: "image",
+              name: "图片",
+              img: require("@/assets/img/charts/image.png"),
             },
           ],
         },
         tools: {
-          name: '组件',
+          name: "组件",
           children: [
             {
-              id: 'border',
-              name: '边框',
-              img: require('@/assets/img/charts/border.png'),
+              id: "border",
+              name: "边框",
+              img: require("@/assets/img/charts/border.png"),
             },
-            {
-              id: 'mask',
-              name: '蒙板',
-              img: require('@/assets/img/mask/mask-icon.png'),
+             {
+              id: "mask",
+              name: "蒙板",
+              img: require("@/assets/img/mask/mask-icon.png"),
             },
           ],
         },
@@ -210,68 +208,99 @@ export default {
       this.$parent.$parent.setActiveComponentByIndex(e.newIndex);
     },
     cloneComponent(origin) {
-      const list = this.componentList[this.panelKey].children;
-      const item = list[origin.oldIndex];
-      this.handleAddComponent(item);
+      const list = this.componentList[this.panelKey].children
+      const item = list[origin.oldIndex]
+      this.handleAddComponent(item)
     },
     handleAddComponent(item) {
       let initData = {};
-      if (item.id === 'text') {
+      if (item.id == "text") {
         initData = {
-          type: 'text',
+          type: "text",
           datacon: {
-            text: '请输入文字',
-            color: '#000000',
+            text: "请输入文字",
+            color: "#000000",
             fontSize: 48,
-            fontFamily: 'ZCOOL QingKe HuangYou',
+            fontFamily: "ZCOOL QingKe HuangYou",
             bold: false,
             italic: false,
             stroke: false,
-            strokeColor: '#ffffff',
+            strokeColor: "#ffffff",
             strokeSize: 2,
             shadow: false,
-            shadowColor: '#ff0000',
+            shadowColor: "#ff0000",
             shadowBlur: 10,
           },
         };
-      } else if (item.id === 'image') {
+      } else if (item.id == "image") {
         initData = {
-          type: 'image',
+          type: "image",
           datacon: {
-            img: '',
-            imgSize: 'cover',
+            img: "",
+            imgSize: "cover",
             opacity: 1,
           },
         };
-      } else if (item.id === 'border') {
+      } else if (item.id == "border") {
         initData = {
-          type: 'border',
-          datacon: {
-            borderId: 1,
-            opacity: 1,
-          },
-        };
-      } else if (item.id === 'mask') {
-        initData = {
-          type: 'mask',
+          type: "border",
           datacon: {
             borderId: 1,
             opacity: 1,
           },
-          bgcolor: 'rgba(192,196,204,1)',
         };
-      } else if (item.id === 'gauge') {
-        initData = gaugeConfig;
+      } else if (item.id == "mask") {
+        initData = {
+          type: "mask",
+          datacon: {
+            borderId: 1,
+            opacity: 1,
+          },
+          bgcolor: "rgba(192,196,204,1)",
+        };
       } else {
-        initData = chartsConfig(item.id);
+        initData = {
+          type: "chart",
+          settings: {
+            type: item.id,
+          },
+          datacon: {
+            type: "raw",
+            connectId: "",
+            data: {
+              columns: ["日期", "访问用户"],
+              rows: [
+                { 日期: "1月1日", 访问用户: 1523 },
+                { 日期: "1月2日", 访问用户: 1223 },
+                { 日期: "1月3日", 访问用户: 2123 },
+                { 日期: "1月4日", 访问用户: 4123 },
+                { 日期: "1月5日", 访问用户: 3123 },
+                { 日期: "1月6日", 访问用户: 7123 },
+              ],
+            },
+            getUrl: "",
+            interval: 2,
+          },
+          generated: {
+            columns: ["日期", "访问用户"],
+            rows: [
+              { 日期: "1月1日", 访问用户: 1523 },
+              { 日期: "1月2日", 访问用户: 1223 },
+              { 日期: "1月3日", 访问用户: 2123 },
+              { 日期: "1月4日", 访问用户: 4123 },
+              { 日期: "1月5日", 访问用户: 3123 },
+              { 日期: "1月6日", 访问用户: 7123 },
+            ],
+          },
+        };
       }
       const component = {
-        name: `新建图层${this.chartData.elements.length + 1}`,
+        name: "新建图层" + (this.chartData.elements.length + 1),
         x: 10,
         y: 10,
         w: 400,
         h: 200,
-        bgcolor: initData.bgcolor || 'rgba(0,0,0,0)',
+        bgcolor: initData.bgcolor || "rgba(0,0,0,0)",
         active: true,
         data: initData,
       };

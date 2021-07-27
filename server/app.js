@@ -26,7 +26,7 @@ app.use(koaBody({
 }));
 
 // 连接数据库
-mongoose.connect("mongodb://localhost:27017/低代码大屏", { useNewUrlParser: true }, err => {
+mongoose.connect("mongodb://122.51.169.199:27017/低代码大屏", { useNewUrlParser: true }, err => {
   if (err) {
     console.log('[server] MongoDB connect error: ' + err);
   } else {
