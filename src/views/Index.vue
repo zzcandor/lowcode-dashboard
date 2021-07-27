@@ -76,6 +76,12 @@ export default {
                 type: "success",
                 message: "验证成功",
               });
+              const userInfo = {
+                token: md5pass,
+                userName: data.name
+              }
+              localStorage.setItem('userInfo',JSON.stringify(userInfo))
+              this.$store.commit('SET_USERINFO', userInfo)
               localStorage.setItem("uid", data.uid);
               localStorage.setItem("user", data.name);
               this.$router.push("console");

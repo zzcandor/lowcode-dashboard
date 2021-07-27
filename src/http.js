@@ -33,12 +33,16 @@ instance.defaults.baseURL = 'http://localhost:3000';
 // 请求拦截器
 instance.interceptors.request.use(
   (config) => {
-    // 每次请求附加一个Ticket
-    const {ticket} = store.state;
-    // if (ticket) {
-    //     config.params.ticket = ticket;
-    // }
-    // ticket && (config.headers.Authorization = ticket);
+    // 每次请求附加一个token
+    if (!config.url.includes('/user/')) {
+      const token = store.getters.userInfo?.token;
+      if (token) {
+        config.headers.Authorization = token;
+      } else {
+        toLogin();
+        return Promise.resolve();
+      }
+    }
     return config;
   },
   error => Promise.error(error),
@@ -47,7 +51,15 @@ instance.interceptors.request.use(
 // 响应拦截器
 instance.interceptors.response.use(
   // 请求成功
-  res => (res.status === 200 ? Promise.resolve(res) : Promise.reject(res)),
+  (res) => {
+    if (res.status === 200) {
+      return Promise.resolve(res);
+    } if (res.status === 401) {
+      toLogin();
+      return Promise.reject(res);
+    }
+    return Promise.reject(res);
+  },
   // 请求失败
   error => Promise.reject(error.response),
 );
