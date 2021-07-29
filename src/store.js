@@ -1,29 +1,29 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from 'vue'
+import Vuex from 'vuex'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 const store = new Vuex.Store({
-  state: {
-    userInfo: null,
-  },
-  mutations: {
-    SET_USERINFO(state, data) {
-      state.userInfo = data;
+    state: {
+        userInfo: null,
     },
-  },
-  actions: {
-
-  },
-  getters: {
-    userInfo(state) {
-      if (!state.userInfo) {
-        const _userInfo = localStorage.getItem('userInfo');
-        store.commit('SET_USERINFO', JSON.parse(_userInfo));
-      }
-      return state.userInfo;
+    mutations: {
+        SET_USERINFO(state, data) {
+            state.userInfo = data
+        },
     },
-  },
-});
+    actions: {
 
-export default store;
+    },
+    getters: {
+        userInfo(state) {
+            if (!state.userInfo) {
+                const _userInfo = localStorage.getItem('userInfo')
+                store.commit('SET_USERINFO', JSON.parse(_userInfo))
+            }
+            return state.userInfo
+        },
+    },
+})
+
+export default store

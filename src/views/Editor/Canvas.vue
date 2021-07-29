@@ -1,210 +1,209 @@
 <template>
-  <div>
-    <el-dialog
-      title="发布"
-      :visible.sync="$parent.publishPopVisible"
-      width="50%"
-    >
-      <div style="margin-bottom: 16px">发布成功！当前图表的公开链接为：</div>
-      <el-input v-model="publicUrl" readonly="readonly"></el-input
-      ><span slot="footer">
-        <el-button type="primary" @click="$parent.publishPopVisible = false"
-          >确 定</el-button
-        ></span
-      >
-    </el-dialog>
-    <div
-      class="edit-view"
-      tabindex="0"
-      @keydown.space.prevent="handleSpaceDown"
-      @keyup.space.prevent="handleSpaceUp"
-      @click.self="handleActivated(-1)"
-    >
-      <vue-ruler-tool
-        :content-layout="{left:250,top:50}"
-        :is-scale-revise="true"
-        :v-model="presetLine"
-        :position="'absolute'"
-      >
-        <vue-draggable-resizable
-          :style="wrapStyle"
-          :x="100"
-          :y="50"
-          :w="chartData.w"
-          :h="chartData.h"
-          class-name="screen-box"
-          class-name-draggable="screen-box-draggable"
-          :draggable="screenDraggable"
-          :resizable="false"
-          group="componentsGroup"
+    <div>
+        <el-dialog
+            title="发布"
+            :visible.sync="$parent.publishPopVisible"
+            width="50%"
         >
-          <div
-            class="screen"
-            :style="screenStyle"
+            <div style="margin-bottom: 16px">发布成功！当前图表的公开链接为：</div>
+            <el-input v-model="publicUrl" readonly="readonly" /><span slot="footer">
+                <el-button
+                    type="primary"
+                    @click="$parent.publishPopVisible = false"
+                >确 定</el-button></span>
+        </el-dialog>
+        <div
+            class="edit-view"
+            tabindex="0"
+            @keydown.space.prevent="handleSpaceDown"
+            @keyup.space.prevent="handleSpaceUp"
             @click.self="handleActivated(-1)"
-            ref="screen"
-          >
-            <draggable
-              :animation="340"
-              style="width:100%;height:100%"
-              group="componentsGroup"
+        >
+            <vue-ruler-tool
+                :content-layout="{ left: 250,top: 50 }"
+                :is-scale-revise="true"
+                :v-model="presetLine"
+                :position="'absolute'"
             >
-              <vue-drag-resize
-                v-for="(item, index) in chartData.elements"
-                :key="index"
-                :isActive="item.active &amp;&amp; !$parent.preview"
-                :parentScaleX="scale"
-                :parentScaleY="scale"
-                :x="item.x"
-                :y="item.y"
-                :w="item.w"
-                :h="item.h"
-                :parentLimitation="true"
-                :parentW="chartData.w"
-                :parentH="chartData.h"
-                :aspectRatio="false"
-                :minw="20"
-                :minh="20"
-                :z="chartData.elements.length - index"
-                :isDraggable="!$parent.preview"
-                :isResizable="!$parent.preview"
-                @activated="handleActivated(index)"
-                @resizing="handleResize(item, arguments[0])"
-                @dragging="handleDrag(item, arguments[0])"
-              >
-                <div
-                  class="filler"
-                  v-if="item.data.type == 'chart'"
-                  :style="{
-                    width: '100%',
-                    height: '100%',
-                    backgroundColor: item.bgcolor,
-                  }"
+                <vue-draggable-resizable
+                    :style="wrapStyle"
+                    :x="100"
+                    :y="50"
+                    :w="chartData.w"
+                    :h="chartData.h"
+                    class-name="screen-box"
+                    class-name-draggable="screen-box-draggable"
+                    :draggable="screenDraggable"
+                    :resizable="false"
+                    group="componentsGroup"
                 >
-                  <ve-map
-                    v-if="item.data.settings.type == 'map'"
-                    :width="item.w + 'px'"
-                    :height="item.h + 'px'"
-                    :data="item.data.generated"
-                    :settings="item.data.settings"
-                    @ready-once="generateData(item)"
-                  ></ve-map>
-                  <ve-gauge
-                    v-if="item.data.settings.type == 'gauge'"
-                    :width="item.w + 'px'"
-                    :height="item.h + 'px'"
-                    :data="item.data.generated"
-                    :settings="item.data.settings"
-                    @ready-once="generateData(item)"
-                  ></ve-gauge>
-                  <ve-liquidfill
-                    v-else-if="item.data.settings.type == 'liquidfill'"
-                    :width="item.w + 'px'"
-                    :height="item.h + 'px'"
-                    :data="item.data.generated"
-                    @ready-once="generateData(item)"
-                  ></ve-liquidfill>
-                  <ve-chart
-                    v-else
-                    :width="item.w + 'px'"
-                    :height="item.h + 'px'"
-                    :data="item.data.generated"
-                    :settings="item.data.settings"
-                    @ready-once="generateData(item)"
-                  ></ve-chart>
-                </div>
-                <div
-                  class="filler"
-                  v-if="item.data.type == 'text'"
-                  :style="{
-                    width: '100%',
-                    height: '100%',
-                    backgroundColor: item.bgcolor,
-                  }"
-                >
-                  <div
-                    class="textcontainer"
-                    :style="{
-                      fontFamily: item.data.datacon.fontFamily,
-                      fontWeight: item.data.datacon.bold ? 'bold' : 'normal',
-                      fontStyle: item.data.datacon.italic ? 'italic' : 'normal',
-                      color: item.data.datacon.color,
-                      fontSize: item.data.datacon.fontSize + 'px',
-                      textStroke: item.data.datacon.stroke
-                        ? item.data.datacon.strokeSize +
-                          'px ' +
-                          item.data.datacon.strokeColor
-                        : '0',
-                      textShadow: item.data.datacon.shadow
-                        ? '5px 5px ' +
-                          item.data.datacon.shadowBlur +
-                          'px ' +
-                          item.data.datacon.shadowColor
-                        : 'none',
-                    }"
-                    v-text="item.data.datacon.text"
-                  ></div>
-                </div>
-                <div
-                  class="filler"
-                  v-if="item.data.type == 'image'"
-                  :style="{
-                    width: '100%',
-                    height: '100%',
-                    backgroundColor: item.bgcolor,
-                  }"
-                >
-                  <div
-                    class="imagecontainer"
-                    :style="{
-                      backgroundImage: `url(${item.data.datacon.img})`,
-                      backgroundSize: item.data.datacon.imgSize,
-                      opacity: item.data.datacon.opacity,
-                    }"
-                  >
-                    <div class="placeholder" v-show="!item.data.datacon.img"></div>
-                  </div>
-                </div>
-                <div
-                  class="filler"
-                  v-if="item.data.type == 'border'"
-                  :style="{
-                    width: '100%',
-                    height: '100%',
-                    backgroundColor: item.bgcolor,
-                  }"
-                >
-                  <div
-                    class="bordercontainer"
-                    :class="'border' + item.data.datacon.borderId"
-                    :style="{ opacity: item.data.datacon.opacity }"
-                  ></div>
-                </div>
-                <div
-                  class="filler"
-                  v-if="item.data.type == 'mask'"
-                  :style="{
-                    width: '100%',
-                    height: '100%',
-                    backgroundColor: item.bgcolor,
-                  }"
-                >
-                  <div
-                    class="bordercontainer"
-                    :style="{ opacity: item.data.datacon.opacity }"
-                  ></div>
-                </div>
-              </vue-drag-resize>
-              <div class="mock" :class="{ front: screenDraggable }"></div>
-            </draggable>
-          </div>
-        </vue-draggable-resizable>
-      </vue-ruler-tool>
+                    <div
+                        ref="screen"
+                        class="screen"
+                        :style="screenStyle"
+                        @click.self="handleActivated(-1)"
+                    >
+                        <draggable
+                            :animation="340"
+                            style="width:100%;height:100%"
+                            group="componentsGroup"
+                        >
+                            <vue-drag-resize
+                                v-for="(item, index) in chartData.elements"
+                                :key="index"
+                                :is-active="item.active &amp;&amp; !$parent.preview"
+                                :parent-scale-x="scale"
+                                :parent-scale-y="scale"
+                                :x="item.x"
+                                :y="item.y"
+                                :w="item.w"
+                                :h="item.h"
+                                :parent-limitation="true"
+                                :parent-w="chartData.w"
+                                :parent-h="chartData.h"
+                                :aspect-ratio="false"
+                                :minw="20"
+                                :minh="20"
+                                :z="chartData.elements.length - index"
+                                :is-draggable="!$parent.preview"
+                                :is-resizable="!$parent.preview"
+                                @activated="handleActivated(index)"
+                                @resizing="handleResize(item, arguments[0])"
+                                @dragging="handleDrag(item, arguments[0])"
+                            >
+                                <div
+                                    v-if="item.data.type === 'chart'"
+                                    class="filler"
+                                    :style="{
+                                        width: '100%',
+                                        height: '100%',
+                                        backgroundColor: item.bgcolor,
+                                    }"
+                                >
+                                    <ve-map
+                                        v-if="item.data.settings.type === 'map'"
+                                        :width="item.w + 'px'"
+                                        :height="item.h + 'px'"
+                                        :data="item.data.generated"
+                                        :settings="item.data.settings"
+                                        @ready-once="generateData(item)"
+                                    />
+                                    <ve-gauge
+                                        v-if="item.data.settings.type === 'gauge'"
+                                        :width="item.w + 'px'"
+                                        :height="item.h + 'px'"
+                                        :data="item.data.generated"
+                                        :settings="item.data.settings"
+                                        @ready-once="generateData(item)"
+                                    />
+                                    <ve-liquidfill
+                                        v-else-if="item.data.settings.type === 'liquidfill'"
+                                        :width="item.w + 'px'"
+                                        :height="item.h + 'px'"
+                                        :data="item.data.generated"
+                                        @ready-once="generateData(item)"
+                                    />
+                                    <ve-chart
+                                        v-else
+                                        :width="item.w + 'px'"
+                                        :height="item.h + 'px'"
+                                        :data="item.data.generated"
+                                        :settings="item.data.settings"
+                                        @ready-once="generateData(item)"
+                                    />
+                                </div>
+                                <div
+                                    v-if="item.data.type === 'text'"
+                                    class="filler"
+                                    :style="{
+                                        width: '100%',
+                                        height: '100%',
+                                        backgroundColor: item.bgcolor,
+                                    }"
+                                >
+                                    <div
+                                        class="textcontainer"
+                                        :style="{
+                                            fontFamily: item.data.datacon.fontFamily,
+                                            fontWeight: item.data.datacon.bold ? 'bold' : 'normal',
+                                            fontStyle: item.data.datacon.italic ? 'italic' : 'normal',
+                                            color: item.data.datacon.color,
+                                            fontSize: item.data.datacon.fontSize + 'px',
+                                            textStroke: item.data.datacon.stroke
+                                                ? item.data.datacon.strokeSize +
+                                                    'px ' +
+                                                    item.data.datacon.strokeColor
+                                                : '0',
+                                            textShadow: item.data.datacon.shadow
+                                                ? '5px 5px ' +
+                                                    item.data.datacon.shadowBlur +
+                                                    'px ' +
+                                                    item.data.datacon.shadowColor
+                                                : 'none',
+                                        }"
+                                        v-text="item.data.datacon.text"
+                                    />
+                                </div>
+                                <div
+                                    v-if="item.data.type === 'image'"
+                                    class="filler"
+                                    :style="{
+                                        width: '100%',
+                                        height: '100%',
+                                        backgroundColor: item.bgcolor,
+                                    }"
+                                >
+                                    <div
+                                        class="imagecontainer"
+                                        :style="{
+                                            backgroundImage: `url(${item.data.datacon.img})`,
+                                            backgroundSize: item.data.datacon.imgSize,
+                                            opacity: item.data.datacon.opacity,
+                                        }"
+                                    >
+                                        <div v-show="!item.data.datacon.img" class="placeholder" />
+                                    </div>
+                                </div>
+                                <div
+                                    v-if="item.data.type === 'border'"
+                                    class="filler"
+                                    :style="{
+                                        width: '100%',
+                                        height: '100%',
+                                        backgroundColor: item.bgcolor,
+                                    }"
+                                >
+                                    <div
+                                        class="bordercontainer"
+                                        :class="'border' + item.data.datacon.borderId"
+                                        :style="{ opacity: item.data.datacon.opacity }"
+                                    />
+                                </div>
+                                <div
+                                    v-if="item.data.type === 'mask'"
+                                    class="filler"
+                                    :style="{
+                                        width: '100%',
+                                        height: '100%',
+                                        backgroundColor: item.bgcolor,
+                                    }"
+                                >
+                                    <div
+                                        class="bordercontainer"
+                                        :style="{ opacity: item.data.datacon.opacity }"
+                                    />
+                                </div>
+                            </vue-drag-resize>
+                            <div class="mock" :class="{ front: screenDraggable }" />
+                        </draggable>
+                    </div>
+                </vue-draggable-resizable>
+            </vue-ruler-tool>
+        </div>
     </div>
-  </div>
 </template>
 <script>
-import draggable from 'vuedraggable';
+import draggable from 'vuedraggable'
 /* eslint-disable */
 export default {
   props: ["scale"],

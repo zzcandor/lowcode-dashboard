@@ -1,59 +1,59 @@
-<template  >
-  <div>
-    <el-dialog title="数据统计" :visible.sync="analyseVisible" width="400px">
-      <el-table :data="analyseData" :show-header="false">
-        <el-table-column property="key"></el-table-column>
-        <el-table-column property="value"></el-table-column>
-      </el-table>
-    </el-dialog>
-    <el-row :gutter="36">
-      <el-col :span="6" v-for="item in chartList" :key="item._id">
-        <el-card
-          :body-style="{ padding: '0px' }"
-          shadow="hover"
-          @click.native="editChart(item._id)"
-          ><img class="image" :src="item.img" />
-          <div style="padding: 14px">
-            <span>{{ item.title }}</span>
-            <el-dropdown style="float: right"
-              ><i class="el-icon-more"></i>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="editChart(item._id)"
-                  >编辑</el-dropdown-item
+<template>
+    <div>
+        <el-dialog title="数据统计" :visible.sync="analyseVisible" width="400px">
+            <el-table :data="analyseData" :show-header="false">
+                <el-table-column property="key" />
+                <el-table-column property="value" />
+            </el-table>
+        </el-dialog>
+        <el-row :gutter="36">
+            <el-col v-for="item in chartList" :key="item._id" :span="6">
+                <el-card
+                    :body-style="{ padding: '0px' }"
+                    shadow="hover"
+                    @click.native="editChart(item._id)"
+                ><img class="image" :src="item.img" />
+                    <div style="padding: 14px">
+                        <span>{{ item.title }}</span>
+                        <el-dropdown
+                            style="float: right"
+                        ><i class="el-icon-more" />
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item
+                                    @click.native="editChart(item._id)"
+                                >编辑</el-dropdown-item>
+                                <el-dropdown-item
+                                    @click.native="renameChart(item)"
+                                >重命名</el-dropdown-item>
+                                <el-dropdown-item
+                                    @click.native="copyChart(item)"
+                                >复制</el-dropdown-item>
+                                <el-dropdown-item
+                                    @click.native="deleteChart(item._id)"
+                                >删除</el-dropdown-item>
+                                <el-dropdown-item
+                                    divided="divided"
+                                    @click.native="viewChart(item._id)"
+                                >访问</el-dropdown-item>
+                                <el-dropdown-item
+                                    @click.native="openChartAnalyse(item)"
+                                >查看统计</el-dropdown-item>
+                            </el-dropdown-menu>
+                        </el-dropdown>
+                    </div>
+                </el-card>
+            </el-col>
+            <el-col :span="6">
+                <el-card
+                    :body-style="{ padding: '0px' }"
+                    shadow="hover"
+                    @click.native="addNewChart"
                 >
-                <el-dropdown-item @click.native="renameChart(item)"
-                  >重命名</el-dropdown-item
-                >
-                <el-dropdown-item @click.native="copyChart(item)"
-                  >复制</el-dropdown-item
-                >
-                <el-dropdown-item @click.native="deleteChart(item._id)"
-                  >删除</el-dropdown-item
-                >
-                <el-dropdown-item
-                  @click.native="viewChart(item._id)"
-                  divided="divided"
-                  >访问</el-dropdown-item
-                >
-                <el-dropdown-item @click.native="openChartAnalyse(item)"
-                  >查看统计</el-dropdown-item
-                >
-              </el-dropdown-menu>
-            </el-dropdown>
-          </div>
-        </el-card>
-      </el-col>
-      <el-col :span="6">
-        <el-card
-          :body-style="{ padding: '0px' }"
-          shadow="hover"
-          @click.native="addNewChart"
-        >
-          <div class="add-card"><i class="el-icon-circle-plus"></i></div>
-        </el-card>
-      </el-col>
-    </el-row>
-  </div>
+                    <div class="add-card"><i class="el-icon-circle-plus" /></div>
+                </el-card>
+            </el-col>
+        </el-row>
+    </div>
 </template>
 
 <script>

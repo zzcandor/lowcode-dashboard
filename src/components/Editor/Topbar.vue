@@ -1,31 +1,31 @@
-<template >
-  <div class="header">
-    <div class="filename">{{ $parent.title }}</div>
-    <i
-      class="btn iconfont icon-preview"
-      :class="{ active: $parent.preview }"
-      @click="$parent.preview = !$parent.preview"
-    ></i>
-    <div class="publish-btn" @click="saveChartData">发布</div>
-  </div>
+<template>
+    <div class="header">
+        <div class="filename">{{ $parent.title }}</div>
+        <i
+            class="btn iconfont icon-preview"
+            :class="{ active: $parent.preview }"
+            @click="$parent.preview = !$parent.preview"
+        />
+        <div class="publish-btn" @click="saveChartData">发布</div>
+    </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {};
-  },
-  computed: {
-    pageTitle() {
-      return this.$route.meta.title;
+    data() {
+        return {}
     },
-  },
-  methods: {
-    saveChartData() {
-      this.$parent.saveChartData();
+    computed: {
+        pageTitle() {
+            return this.$route.meta.title
+        },
     },
-  },
-};
+    methods: {
+        saveChartData() {
+            this.$parent.saveChartData()
+        },
+    },
+}
 </script>
 
 <style lang="scss" scoped>

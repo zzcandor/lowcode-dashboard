@@ -214,7 +214,7 @@ export default {
     },
     handleAddComponent(item) {
       let initData = {};
-      if (item.id == "text") {
+      if (item.id === "text") {
         initData = {
           type: "text",
           datacon: {
@@ -232,7 +232,7 @@ export default {
             shadowBlur: 10,
           },
         };
-      } else if (item.id == "image") {
+      } else if (item.id === "image") {
         initData = {
           type: "image",
           datacon: {
@@ -241,7 +241,7 @@ export default {
             opacity: 1,
           },
         };
-      } else if (item.id == "border") {
+      } else if (item.id === "border") {
         initData = {
           type: "border",
           datacon: {
@@ -249,7 +249,7 @@ export default {
             opacity: 1,
           },
         };
-      } else if (item.id == "mask") {
+      } else if (item.id === "mask") {
         initData = {
           type: "mask",
           datacon: {

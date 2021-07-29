@@ -1,21 +1,21 @@
-<template >
-  <div class="editor-view">
-    <div class="topbar-view">
-      <Topbar></Topbar>
+<template>
+    <div class="editor-view">
+        <div class="topbar-view">
+            <Topbar />
+        </div>
+        <div v-show="!preview" class="toolbar-view">
+            <Toolbar />
+        </div>
+        <div v-show="!preview" class="config-view">
+            <Config />
+        </div>
+        <div class="scale-view" :class="{ preview: preview }">
+            <ScaleBar @update:scale="changeScale" />
+        </div>
+        <div class="main-view">
+            <router-view ref="screenContainer" :scale="scale" />
+        </div>
     </div>
-    <div class="toolbar-view" v-show="!preview">
-      <Toolbar></Toolbar>
-    </div>
-    <div class="config-view" v-show="!preview">
-      <Config></Config>
-    </div>
-    <div class="scale-view" :class="{ preview: preview }">
-      <ScaleBar @update:scale="changeScale"></ScaleBar>
-    </div>
-    <div class="main-view">
-      <router-view :scale="scale" ref="screenContainer"></router-view>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -112,9 +112,9 @@ export default {
       });
     },
     generateData(item) {
-      if (item.data.datacon.type == "raw") {
+      if (item.data.datacon.type === "raw") {
         item.data.generated = item.data.datacon.data;
-      } else if (item.data.datacon.type == "connect") {
+      } else if (item.data.datacon.type === "connect") {
         this.$http
           .get("/connect/" + item.data.datacon.connectId)
           .then((res) => {
@@ -125,7 +125,7 @@ export default {
             }
           })
           .catch(() => {});
-      } else if (item.data.datacon.type == "get") {
+      } else if (item.data.datacon.type === "get") {
         clearInterval(interval);
         let time = item.data.datacon.interval ? item.data.datacon.interval : 1;
         interval = setInterval(() => {

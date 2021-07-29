@@ -1,37 +1,37 @@
-<template >
-<el-container>
-  <el-aside width="240px">
-    <NavMenu></NavMenu>
-  </el-aside>
-  <el-container>
-    <el-header height="96px">
-      <PageHeader></PageHeader>
-    </el-header>
-    <el-main>
-      <router-view :user="user"></router-view>
-    </el-main>
-  </el-container>
-</el-container>
+<template>
+    <el-container>
+        <el-aside width="240px">
+            <NavMenu />
+        </el-aside>
+        <el-container>
+            <el-header height="96px">
+                <PageHeader />
+            </el-header>
+            <el-main>
+                <router-view :user="user" />
+            </el-main>
+        </el-container>
+    </el-container>
 </template>
 
 <script>
-import NavMenu from './NavMenu.vue';
-import PageHeader from './PageHeader.vue';
+import NavMenu from './NavMenu.vue'
+import PageHeader from './PageHeader.vue'
 
 export default {
-  data() {
-    return {
-      user: {
-        uid: localStorage.getItem('uid'),
-        username: localStorage.getItem('user'),
-      },
-    };
-  },
-  components: {
-    NavMenu,
-    PageHeader,
-  },
-};
+    components: {
+        NavMenu,
+        PageHeader,
+    },
+    data() {
+        return {
+            user: {
+                uid: localStorage.getItem('uid'),
+                username: localStorage.getItem('user'),
+            },
+        }
+    },
+}
 </script>
 
 <style lang="scss" scoped>
