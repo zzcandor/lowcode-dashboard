@@ -9,40 +9,39 @@ export default {
         axisTick: false,
         splitNumber: 5,
         max: 200,
-        progress: {
-          show: true,
-          overlap: true,
-          roundCap: true,
-          width: 30,
+        axisLine: { // 坐标轴线
+          lineStyle: { // 属性lineStyle控制线条样式
+            color: [[1, '#5470c6']],
+            width: 30,
+            shadowColor: '#fff', // 默认透明
+            shadowBlur: 10,
+          },
         },
         axisLabel: {
           distance: 35,
         },
-        splitLine: {
+        splitLine: { // 分隔线
           length: 5,
-          distance: 2,
-        },
-        axisLine: {
-          roundCap: true,
-          lineStyle: {
-            width: 30,
-          },
         },
         title: {
-          fontSize: 14,
-          width: 180,
           height: 36,
+          lineHeight: 36,
+          padding: [0, 15],
           borderColor: '#5470c6',
           borderWidth: 1,
           borderRadius: 18,
           color: '#5470c6',
           offsetCenter: ['0', '80%'],
+          rich: {},
         },
         detail: {
           formatter: '{value}',
           offsetCenter: ['0', '0'],
         },
       },
+    },
+    dataName: {
+      有进展: '有进展',
     },
   },
   datacon: {
