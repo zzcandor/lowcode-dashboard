@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import chart from './modules/chart'
 
 Vue.use(Vuex)
 
@@ -23,6 +24,11 @@ const store = new Vuex.Store({
             }
             return state.userInfo
         },
+        chartData: state => state.chart.chartData,
+        currentElementIndex: state => state.chart.currentElementIndex,
+    },
+    modules: {
+        chart,
     },
 })
 

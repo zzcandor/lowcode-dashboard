@@ -71,6 +71,20 @@
                                 @resizing="handleResize(item, arguments[0])"
                                 @dragging="handleDrag(item, arguments[0])"
                             >
+                                <div class="control-box">
+                                    <!-- <span
+                                        class="drawing-item-copy"
+                                        title="复制"
+                                        @click="copyItem(item);"
+                                    ><i class="el-icon-copy-document" />
+                                    </span> -->
+                                    <span
+                                        class="drawing-item-delete"
+                                        title="删除"
+                                        @click="handleDeleteComponent(item);"
+                                    ><i class="el-icon-delete" />
+                                    </span>
+                                </div>
                                 <div
                                     v-if="item.data.type === 'chart'"
                                     class="filler"
@@ -204,6 +218,8 @@
 </template>
 <script>
 import draggable from 'vuedraggable'
+import { mapGetters } from 'vuex'
+
 /* eslint-disable */
 export default {
   props: ["scale"],
@@ -217,12 +233,13 @@ export default {
     };
   },
   computed: {
+        ...mapGetters(['chartData']),
     publicUrl() {
       return `http://${window.location.host}${window.location.pathname}#/view/${this.$route.params.id}`;
     },
-    chartData() {
-      return this.$parent.chartData;
-    },
+    // chartData() {
+    //   return this.$parent.chartData;
+    // },
     wrapStyle() {
       return {
         transform: `scale(${this.scale})`,
@@ -234,7 +251,7 @@ export default {
         backgroundImage: `url(${this.chartData.bgimage})`,
         backgroundSize: this.chartData.bgimagesize,
       };
-    },
+    }
   },
   methods: {
     handleSpaceDown() {
@@ -244,7 +261,10 @@ export default {
       this.screenDraggable = false;
     },
     handleActivated(index) {
-      this.$parent.setActiveComponentByIndex(index);
+      this.$store.commit('setActiveComponentByIndex', index)      
+    },
+    handleDeleteComponent(index) {
+       this.$store.commit('deleteComponent', index) 
     },
     handleResize(widget, arg) {
       const item = widget;
@@ -261,11 +281,16 @@ export default {
     generateData(item) {
       this.$parent.generateData(item);
     },
+    copyItem(item) {
+      console.log(item)
+    }
   },
 };
 </script>
 
 <style lang="scss" scoped>
+$selectedColor: #f6f7ff;
+$lighterBlue: #409eff;
 .edit-view {
   position: relative;
   width: 100%;
@@ -296,6 +321,64 @@ export default {
   height: 100%;
   .vdr {
     border: 0;
+  }
+  .control-box {
+    position: absolute;
+    right: 10px;
+    // display: none;
+    top: -20px;
+        & > .drawing-item-copy,
+        & > .drawing-item-delete {
+            display: inline-flex;
+            background: #ffffff;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 30px;
+            border: 1px solid gray;
+            border-radius: 100%;
+            width: 40px;
+            height: 40px;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+    & > .drawing-item-copy,
+    & > .drawing-item-delete {
+        display: none;
+        position: absolute;
+        top: -10px;
+        width: 22px;
+        height: 22px;
+        line-height: 22px;
+        text-align: center;
+        border-radius: 50%;
+        font-size: 12px;
+        border: 1px solid;
+        cursor: pointer;
+        z-index: 1;
+        &:hover {
+          border-color:red;
+        }
+    }
+    & > .drawing-item-copy {
+        right: 56px;        
+        color: $lighterBlue;
+        background: #fff;
+        &:hover {
+            background: $lighterBlue;
+            color: #fff;
+        }
+    }
+    & > .drawing-item-delete {
+        right: 24px;
+        border-color: #f56c6c;
+        color: #f56c6c;
+        background: #fff;
+        &:hover {
+            background: #f56c6c;
+            color: #fff;
+        }
+
   }
   .filler {
     .textcontainer {

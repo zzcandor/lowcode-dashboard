@@ -1,4 +1,3 @@
-
 <template>
     <div class="panel">
         <div v-if="panelKey === 'layers'" class="title">
@@ -24,7 +23,7 @@
                         :key="item.name"
                         class="list-item"
                         :class="{ active: index === $parent.$parent.currentElementIndex }"
-                        @click="$parent.$parent.setActiveComponentByIndex(index)"
+                        @click="$store.commit('setActiveComponentByIndex', index)"
                     >
                         <div class="name">{{ item.name }}</div>
                         <i
@@ -64,7 +63,6 @@
 <script>
 import draggable from 'vuedraggable'
 /* eslint-disable */
-
 export default {
   props: ["panelKey"],
   components: {
@@ -201,11 +199,11 @@ export default {
   methods: {
     handleLayerListDragStart(e) {
       this.drag = true;
-      this.$parent.$parent.setActiveComponentByIndex(e.oldIndex);
+      this.$store.commit('setActiveComponentByIndex', e.oldIndex)
     },
     handleLayerListDragEnd(e) {
       this.drag = false;
-      this.$parent.$parent.setActiveComponentByIndex(e.newIndex);
+      this.$store.commit('setActiveComponentByIndex', e.newIndex)
     },
     cloneComponent(origin) {
       const list = this.componentList[this.panelKey].children
