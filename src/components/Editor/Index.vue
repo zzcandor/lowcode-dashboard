@@ -38,7 +38,7 @@ export default {
   data() {
     return {
       title: "",
-      scale: 0.7,
+      scale: 0.6,
       preview: false,
       chartData: {
         elements: [],

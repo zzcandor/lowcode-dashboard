@@ -20,7 +20,7 @@
 export default {
     data() {
         return {
-            scale: 0.7,
+            scale: 0.6,
         }
     },
     watch: {
