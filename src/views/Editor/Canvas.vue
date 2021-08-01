@@ -71,13 +71,13 @@
                                 @resizing="handleResize(item, arguments[0])"
                                 @dragging="handleDrag(item, arguments[0])"
                             >
-                                <div class="control-box">
-                                    <!-- <span
+                                <div v-if="item.active" class="control-box">
+                                    <span
                                         class="drawing-item-copy"
                                         title="复制"
-                                        @click="copyItem(item);"
+                                        @click="$store.dispatch('handleAddComponentFromIcon', item.data.settings.id);"
                                     ><i class="el-icon-copy-document" />
-                                    </span> -->
+                                    </span>
                                     <span
                                         class="drawing-item-delete"
                                         title="删除"
@@ -219,77 +219,72 @@
 <script>
 import draggable from 'vuedraggable'
 import { mapGetters } from 'vuex'
-
-/* eslint-disable */
 export default {
-  props: ["scale"],
-  components: {
-    draggable,
-  },
-  data() {
-    return {
-      screenDraggable: false,
-      presetLine: [{ type: 'l', site: 100 }, { type: 'v', site: 200 }],
-    };
-  },
-  computed: {
+    components: {
+        draggable,
+    },
+    // eslint-disable-next-line vue/require-prop-types
+    props: ['scale'],
+    data() {
+        return {
+            screenDraggable: false,
+            presetLine: [{ type: 'l', site: 100 }, { type: 'v', site: 200 }],
+        }
+    },
+    computed: {
         ...mapGetters(['chartData']),
-    publicUrl() {
-      return `http://${window.location.host}${window.location.pathname}#/view/${this.$route.params.id}`;
+        publicUrl() {
+            return `http://${window.location.host}${window.location.pathname}#/view/${this.$route.params.id}`
+        },
+        wrapStyle() {
+            return {
+                transform: `scale(${this.scale})`,
+            }
+        },
+        screenStyle() {
+            return {
+                backgroundColor: this.chartData.bgcolor,
+                backgroundImage: `url(${this.chartData.bgimage})`,
+                backgroundSize: this.chartData.bgimagesize,
+            }
+        }
     },
-    // chartData() {
-    //   return this.$parent.chartData;
-    // },
-    wrapStyle() {
-      return {
-        transform: `scale(${this.scale})`,
-      };
+    methods: {
+        handleSpaceDown() {
+            this.screenDraggable = true
+        },
+        handleSpaceUp() {
+            this.screenDraggable = false
+        },
+        handleActivated(index) {
+            this.$store.commit('setActiveComponentByIndex', index)
+        },
+        handleDeleteComponent(index) {
+            this.$store.commit('deleteComponent', index)
+        },
+        handleResize(widget, arg) {
+            const item = widget
+            item.x = arg.left
+            item.y = arg.top
+            item.w = arg.width
+            item.h = arg.height
+        },
+        handleDrag(widget, arg) {
+            const item = widget
+            item.x = arg.left
+            item.y = arg.top
+        },
+        generateData(item) {
+            this.$parent.generateData(item)
+        },
+        handleCopyItem(item) {
+            console.log(item)
+        }
     },
-    screenStyle() {
-      return {
-        backgroundColor: this.chartData.bgcolor,
-        backgroundImage: `url(${this.chartData.bgimage})`,
-        backgroundSize: this.chartData.bgimagesize,
-      };
-    }
-  },
-  methods: {
-    handleSpaceDown() {
-      this.screenDraggable = true;
-    },
-    handleSpaceUp() {
-      this.screenDraggable = false;
-    },
-    handleActivated(index) {
-      this.$store.commit('setActiveComponentByIndex', index)      
-    },
-    handleDeleteComponent(index) {
-       this.$store.commit('deleteComponent', index) 
-    },
-    handleResize(widget, arg) {
-      const item = widget;
-      item.x = arg.left;
-      item.y = arg.top;
-      item.w = arg.width;
-      item.h = arg.height;
-    },
-    handleDrag(widget, arg) {
-      const item = widget;
-      item.x = arg.left;
-      item.y = arg.top;
-    },
-    generateData(item) {
-      this.$parent.generateData(item);
-    },
-    copyItem(item) {
-      console.log(item)
-    }
-  },
-};
+}
 </script>
 
 <style lang="scss" scoped>
-$selectedColor: #f6f7ff;
 $lighterBlue: #409eff;
 .edit-view {
   position: relative;
@@ -301,8 +296,6 @@ $lighterBlue: #409eff;
 }
 
 .screen-box {
-  // width: 1220px;
-  // height: 400px;
   position: relative;
   background: #ffffff;
   transform-origin: 0 0;
@@ -361,7 +354,7 @@ $lighterBlue: #409eff;
         }
     }
     & > .drawing-item-copy {
-        right: 56px;        
+        right: 56px;
         color: $lighterBlue;
         background: #fff;
         &:hover {

@@ -400,18 +400,18 @@
                         :before-upload="beforeUpload"
                     >
                         <div
-                            v-if="this.currentElement.data.datacon.img"
+                            v-if="currentElement.data.datacon.img"
                             class="bg-preview-wrapper"
                         >
                             <img
                                 class="bg-preview"
-                                :src="this.currentElement.data.datacon.img"
+                                :src="currentElement.data.datacon.img"
                             />
                         </div>
                         <i v-else class="el-icon-plus avatar-uploader-icon" />
                     </el-upload>
                     <el-row>
-                        <el-col v-show="this.currentElement.data.datacon.img" :span="24">
+                        <el-col v-show="currentElement.data.datacon.img" :span="24">
                             <el-select
                                 v-model="currentElement.data.datacon.imgSize"
                                 placeholder="请选择"

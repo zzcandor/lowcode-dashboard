@@ -28,7 +28,7 @@
                         <div class="name">{{ item.name }}</div>
                         <i
                             class="el-icon-delete icon"
-                            @click="handleDeleteComponent(index)"
+                            @click="$store.commit('deleteComponent', index)"
                         />
                     </div>
                 </transition-group>
@@ -50,7 +50,7 @@
                     v-for="(item, index) in componentList[panelKey].children"
                     :key="index"
                     class="list-item"
-                    @click="handleAddComponent(item)"
+                    @click="$store.dispatch('handleAddComponentFromIcon', item.id)"
                 >
                     <div class="img-wrapper"><img :src="item.img" /></div>
                     <div class="name">{{ item.name }}</div>
@@ -62,253 +62,158 @@
 
 <script>
 import draggable from 'vuedraggable'
-/* eslint-disable */
+
 export default {
-  props: ["panelKey"],
-  components: {
-    draggable,
-  },
-  data() {
-    return {
-      drag: false,
-      componentList: {
-        chart: {
-          name: "图表",
-          children: [
-            {
-              id: "line",
-              name: "折线图",
-              img: require("@/assets/img/charts/line.png"),
+    components: {
+        draggable,
+    },
+    // eslint-disable-next-line vue/require-prop-types
+    props: ['panelKey'],
+    data() {
+        return {
+            drag: false,
+            componentList: {
+                chart: {
+                    name: '图表',
+                    children: [
+                        {
+                            id: 'line',
+                            name: '折线图',
+                            img: require('@/assets/img/charts/line.png'),
+                        },
+                        {
+                            id: 'histogram',
+                            name: '柱状图',
+                            img: require('@/assets/img/charts/histogram.png'),
+                        },
+                        {
+                            id: 'bar',
+                            name: '条形图',
+                            img: require('@/assets/img/charts/bar.png'),
+                        },
+                        {
+                            id: 'pie',
+                            name: '饼图',
+                            img: require('@/assets/img/charts/pie.png'),
+                        },
+                        {
+                            id: 'ring',
+                            name: '环状图',
+                            img: require('@/assets/img/charts/ring.png'),
+                        },
+                        {
+                            id: 'funnel',
+                            name: '漏斗图',
+                            img: require('@/assets/img/charts/funnel.png'),
+                        },
+                        {
+                            id: 'radar',
+                            name: '雷达图',
+                            img: require('@/assets/img/charts/radar.png'),
+                        },
+                        // {
+                        //   id: "map-world",
+                        //   name: "世界地图",
+                        //   img: require("@/assets/img/charts/map-world.png")
+                        // },
+                        {
+                            id: 'map',
+                            name: '中国地图',
+                            img: require('@/assets/img/charts/map-china.png'),
+                        },
+                        // {
+                        //   id: "sankey",
+                        //   name: "桑基图",
+                        //   img: require("@/assets/img/charts/sankey.png")
+                        // },
+                        // {
+                        //   id: "scatter",
+                        //   name: "散点图",
+                        //   img: require("@/assets/img/charts/scatter.png")
+                        // },
+                        // {
+                        //   id: "candle",
+                        //   name: "K线图",
+                        //   img: require("@/assets/img/charts/candle.png")
+                        // },
+                        // {
+                        //   id: "gauge",
+                        //   name: "仪表盘",
+                        //   img: require("@/assets/img/charts/gauge.png")
+                        // },
+                        {
+                            id: 'liquidfill',
+                            name: '水球图',
+                            img: require('@/assets/img/charts/liquidfill.png'),
+                        },
+                        // {
+                        //   id: "wordcloud",
+                        //   name: "词云图",
+                        //   img: require("@/assets/img/charts/wordcloud.png")
+                        // }
+                    ],
+                },
+                text: {
+                    name: '文本',
+                    children: [
+                        {
+                            id: 'text',
+                            name: '文本',
+                            img: require('@/assets/img/charts/text.png'),
+                        },
+                    ],
+                },
+                picture: {
+                    name: '图片',
+                    children: [
+                        {
+                            id: 'image',
+                            name: '图片',
+                            img: require('@/assets/img/charts/image.png'),
+                        },
+                    ],
+                },
+                tools: {
+                    name: '组件',
+                    children: [
+                        {
+                            id: 'border',
+                            name: '边框',
+                            img: require('@/assets/img/charts/border.png'),
+                        },
+                        {
+                            id: 'mask',
+                            name: '蒙板',
+                            img: require('@/assets/img/mask/mask-icon.png'),
+                        },
+                    ],
+                },
             },
-            {
-              id: "histogram",
-              name: "柱状图",
-              img: require("@/assets/img/charts/histogram.png"),
-            },
-            {
-              id: "bar",
-              name: "条形图",
-              img: require("@/assets/img/charts/bar.png"),
-            },
-            {
-              id: "pie",
-              name: "饼图",
-              img: require("@/assets/img/charts/pie.png"),
-            },
-            {
-              id: "ring",
-              name: "环状图",
-              img: require("@/assets/img/charts/ring.png"),
-            },
-            {
-              id: "funnel",
-              name: "漏斗图",
-              img: require("@/assets/img/charts/funnel.png"),
-            },
-            {
-              id: "radar",
-              name: "雷达图",
-              img: require("@/assets/img/charts/radar.png"),
-            },
-            // {
-            //   id: "map-world",
-            //   name: "世界地图",
-            //   img: require("@/assets/img/charts/map-world.png")
-            // },
-            {
-              id: "map",
-              name: "中国地图",
-              img: require("@/assets/img/charts/map-china.png"),
-            },
-            // {
-            //   id: "sankey",
-            //   name: "桑基图",
-            //   img: require("@/assets/img/charts/sankey.png")
-            // },
-            // {
-            //   id: "scatter",
-            //   name: "散点图",
-            //   img: require("@/assets/img/charts/scatter.png")
-            // },
-            // {
-            //   id: "candle",
-            //   name: "K线图",
-            //   img: require("@/assets/img/charts/candle.png")
-            // },
-            // {
-            //   id: "gauge",
-            //   name: "仪表盘",
-            //   img: require("@/assets/img/charts/gauge.png")
-            // },
-            {
-              id: "liquidfill",
-              name: "水球图",
-              img: require("@/assets/img/charts/liquidfill.png"),
-            },
-            // {
-            //   id: "wordcloud",
-            //   name: "词云图",
-            //   img: require("@/assets/img/charts/wordcloud.png")
-            // }
-          ],
+            layerList: [],
+        }
+    },
+    computed: {
+        chartData() {
+            return this.$parent.chartData
         },
-        text: {
-          name: "文本",
-          children: [
-            {
-              id: "text",
-              name: "文本",
-              img: require("@/assets/img/charts/text.png"),
-            },
-          ],
+    },
+    methods: {
+        handleLayerListDragStart(e) {
+            this.drag = true
+            this.$store.commit('setActiveComponentByIndex', e.oldIndex)
         },
-        picture: {
-          name: "图片",
-          children: [
-            {
-              id: "image",
-              name: "图片",
-              img: require("@/assets/img/charts/image.png"),
-            },
-          ],
+        handleLayerListDragEnd(e) {
+            this.drag = false
+            this.$store.commit('setActiveComponentByIndex', e.newIndex)
         },
-        tools: {
-          name: "组件",
-          children: [
-            {
-              id: "border",
-              name: "边框",
-              img: require("@/assets/img/charts/border.png"),
-            },
-             {
-              id: "mask",
-              name: "蒙板",
-              img: require("@/assets/img/mask/mask-icon.png"),
-            },
-          ],
+        cloneComponent(origin) {
+            const list = this.componentList[this.panelKey].children
+            const item = list[origin.oldIndex]
+            this.handleAddComponent(item)
         },
-      },
-      layerList: [],
-    };
-  },
-  computed: {
-    chartData() {
-      return this.$parent.chartData;
+
     },
-  },
-  methods: {
-    handleLayerListDragStart(e) {
-      this.drag = true;
-      this.$store.commit('setActiveComponentByIndex', e.oldIndex)
-    },
-    handleLayerListDragEnd(e) {
-      this.drag = false;
-      this.$store.commit('setActiveComponentByIndex', e.newIndex)
-    },
-    cloneComponent(origin) {
-      const list = this.componentList[this.panelKey].children
-      const item = list[origin.oldIndex]
-      this.handleAddComponent(item)
-    },
-    handleAddComponent(item) {
-      let initData = {};
-      if (item.id === "text") {
-        initData = {
-          type: "text",
-          datacon: {
-            text: "请输入文字",
-            color: "#000000",
-            fontSize: 48,
-            fontFamily: "ZCOOL QingKe HuangYou",
-            bold: false,
-            italic: false,
-            stroke: false,
-            strokeColor: "#ffffff",
-            strokeSize: 2,
-            shadow: false,
-            shadowColor: "#ff0000",
-            shadowBlur: 10,
-          },
-        };
-      } else if (item.id === "image") {
-        initData = {
-          type: "image",
-          datacon: {
-            img: "",
-            imgSize: "cover",
-            opacity: 1,
-          },
-        };
-      } else if (item.id === "border") {
-        initData = {
-          type: "border",
-          datacon: {
-            borderId: 1,
-            opacity: 1,
-          },
-        };
-      } else if (item.id === "mask") {
-        initData = {
-          type: "mask",
-          datacon: {
-            borderId: 1,
-            opacity: 1,
-          },
-          bgcolor: "rgba(192,196,204,1)",
-        };
-      } else {
-        initData = {
-          type: "chart",
-          settings: {
-            type: item.id,
-          },
-          datacon: {
-            type: "raw",
-            connectId: "",
-            data: {
-              columns: ["日期", "访问用户"],
-              rows: [
-                { 日期: "1月1日", 访问用户: 1523 },
-                { 日期: "1月2日", 访问用户: 1223 },
-                { 日期: "1月3日", 访问用户: 2123 },
-                { 日期: "1月4日", 访问用户: 4123 },
-                { 日期: "1月5日", 访问用户: 3123 },
-                { 日期: "1月6日", 访问用户: 7123 },
-              ],
-            },
-            getUrl: "",
-            interval: 2,
-          },
-          generated: {
-            columns: ["日期", "访问用户"],
-            rows: [
-              { 日期: "1月1日", 访问用户: 1523 },
-              { 日期: "1月2日", 访问用户: 1223 },
-              { 日期: "1月3日", 访问用户: 2123 },
-              { 日期: "1月4日", 访问用户: 4123 },
-              { 日期: "1月5日", 访问用户: 3123 },
-              { 日期: "1月6日", 访问用户: 7123 },
-            ],
-          },
-        };
-      }
-      const component = {
-        name: "新建图层" + (this.chartData.elements.length + 1),
-        x: 10,
-        y: 10,
-        w: 400,
-        h: 200,
-        bgcolor: initData.bgcolor || "rgba(0,0,0,0)",
-        active: true,
-        data: initData,
-      };
-      this.$parent.$parent.addComponent(component);
-    },
-    handleDeleteComponent(index) {
-      this.$parent.$parent.deleteComponent(index);
-    },
-  },
-};
+}
 </script>
 
 <style lang="scss" scoped>
