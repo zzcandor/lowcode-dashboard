@@ -163,16 +163,16 @@ export default {
                         },
                     ],
                 },
-                picture: {
-                    name: '图片',
-                    children: [
-                        {
-                            id: 'image',
-                            name: '图片',
-                            img: require('@/assets/img/charts/image.png'),
-                        },
-                    ],
-                },
+                // picture: {
+                //     name: '图片',
+                //     children: [
+                //         {
+                //             id: 'image',
+                //             name: '图片',
+                //             img: require('@/assets/img/charts/image.png'),
+                //         },
+                //     ],
+                // },
                 tools: {
                     name: '组件',
                     children: [
@@ -185,6 +185,11 @@ export default {
                             id: 'mask',
                             name: '蒙板',
                             img: require('@/assets/img/mask/mask-icon.png'),
+                        },
+                        {
+                            id: 'weatherTime',
+                            name: '天气时间',
+                            img: require('@/assets/img/temperature.png'),
                         },
                     ],
                 },

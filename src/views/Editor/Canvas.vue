@@ -207,6 +207,17 @@
                                         :style="{ opacity: item.data.datacon.opacity }"
                                     />
                                 </div>
+                                <div
+                                    v-if="item.data.type === 'weatherTime'"
+                                    class="filler"
+                                    :style="{
+                                        width: '100%',
+                                        height: '100%',
+                                        backgroundColor: item.bgcolor,
+                                    }"
+                                >
+                                    <weatherTime :value-data="item.data.datacon" />
+                                </div>
                             </vue-drag-resize>
                             <div class="mock" :class="{ front: screenDraggable }" />
                         </draggable>
@@ -218,10 +229,12 @@
 </template>
 <script>
 import draggable from 'vuedraggable'
+import weatherTime from '../components/weatherTime.vue'
 import { mapGetters } from 'vuex'
 export default {
     components: {
         draggable,
+        weatherTime
     },
     // eslint-disable-next-line vue/require-prop-types
     props: ['scale'],

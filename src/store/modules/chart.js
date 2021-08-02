@@ -77,6 +77,21 @@ const chart = {
                     },
                     bgcolor: 'rgba(192,196,204,1)',
                 }
+            } else if (componentType === 'weatherTime') {
+                initData = {
+                    type: 'weatherTime',
+                    datacon: {
+                        borderId: 1,
+                        opacity: 1,
+                        time: '16:55:55',
+                        date: '2021/08/02',
+                        temperature: '33',
+                        temperatureUrl: '../../assets/img/temperature.png',
+                        weatherUrl: '../../assets/img/temperature.png',
+                        weather: '多云',
+                        airQuality: '雾霾'
+                    }
+                }
             } else {
                 initData = {
                     type: 'chart',
