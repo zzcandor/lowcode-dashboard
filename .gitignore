@@ -25,3 +25,5 @@ yarn-error.log*
 
 # 低代码大屏 uploads
 /server/public/upload/*
+
+yarn.lock

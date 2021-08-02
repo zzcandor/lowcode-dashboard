@@ -1,157 +1,143 @@
-<template >
-  <div class="editor-view">
-    <div class="topbar-view">
-      <Topbar></Topbar>
+<template>
+    <div class="editor-view">
+        <div class="topbar-view">
+            <Topbar />
+        </div>
+        <div v-show="!preview" class="toolbar-view">
+            <Toolbar />
+        </div>
+        <div v-show="!preview" class="config-view">
+            <Config />
+        </div>
+        <div class="scale-view" :class="{ preview: preview }">
+            <ScaleBar @update:scale="changeScale" />
+        </div>
+        <div class="main-view">
+            <router-view ref="screenContainer" :scale="scale" />
+        </div>
     </div>
-    <div class="toolbar-view" v-show="!preview">
-      <Toolbar></Toolbar>
-    </div>
-    <div class="config-view" v-show="!preview">
-      <Config></Config>
-    </div>
-    <div class="scale-view" :class="{ preview: preview }">
-      <ScaleBar @update:scale="changeScale"></ScaleBar>
-    </div>
-    <div class="main-view">
-      <router-view :scale="scale" ref="screenContainer"></router-view>
-    </div>
-  </div>
 </template>
 
 <script>
-/* eslint-disable */
-import Topbar from "./Topbar.vue";
-import Toolbar from "./Toolbar.vue";
-import Config from "./Config.vue";
-import ScaleBar from "./ScaleBar.vue";
-import html2canvas from "html2canvas";
+import Topbar from './Topbar.vue'
+import Toolbar from './Toolbar.vue'
+import Config from './Config.vue'
+import ScaleBar from './ScaleBar.vue'
+import html2canvas from 'html2canvas'
+import { mapGetters, mapMutations } from 'vuex'
 
-var interval;
+var interval
 
 export default {
-  components: {
-    Topbar,
-    Toolbar,
-    Config,
-    ScaleBar,
-  },
-  data() {
-    return {
-      title: "",
-      scale: 0.7,
-      preview: false,
-      chartData: {
-        elements: [],
-      },
-      publishPopVisible: false,
-      currentElementIndex: -1,
-    };
-  },
-  computed: {
-    currentElement() {
-      if (this.currentElementIndex >= 0) {
-        return this.chartData.elements[this.currentElementIndex];
-      }
-      return {};
+    components: {
+        Topbar,
+        Toolbar,
+        Config,
+        ScaleBar,
     },
-  },
-  mounted() {
-    this.$http
-      .get("/chart/" + this.$route.params.id)
-      .then((res) => {
-        const { errno, data } = res.data;
-        if (errno === 0) {
-          this.title = data.title;
-          this.chartData = data.chartData;
+    data() {
+        return {
+            title: '',
+            scale: 0.6,
+            preview: false,
+            // chartData: {
+            //     elements: [],
+            // },
+            publishPopVisible: false,
+            // currentElementIndex: -1,
         }
-      })
-      .catch(() => {});
-  },
-  beforeDestroy() {
-    clearInterval(interval);
-  },
-  methods: {
-    changeScale(scale) {
-      this.scale = scale;
     },
-    setActiveComponentByIndex(index) {
-      this.currentElementIndex = index;
-      for (let i = 0; i < this.chartData.elements.length; i += 1) {
-        const element = this.chartData.elements[i];
-        if (index === i) {
-          element.active = true;
-        } else {
-          element.active = false;
-        }
-      }
-    },
-    addComponent(data) {
-      this.chartData.elements.unshift(data);
-    },
-    deleteComponent(index) {
-      this.chartData.elements.splice(index, 1);
-    },
-    saveChartData() {
-      const screenshot = this.generateScreenShot().then((url) => {
-        this.$http
-          .put("/chart/" + this.$route.params.id, {
-            img: url,
-            chartData: this.chartData,
-          })
-          .then((res) => {
-            const { errno, data } = res.data;
-            if (errno === 0) {
-              this.publishPopVisible = true;
-              this.$message({
-                type: "success",
-                message: "保存成功",
-              });
+    computed: {
+        currentElement() {
+            if (this.currentElementIndex >= 0) {
+                return this.chartData.elements[this.currentElementIndex]
             }
-          })
-          .catch(() => {});
-      });
+            return {}
+        },
+        ...mapGetters(['chartData', 'currentElementIndex']),
     },
-    generateData(item) {
-      if (item.data.datacon.type == "raw") {
-        item.data.generated = item.data.datacon.data;
-      } else if (item.data.datacon.type == "connect") {
+    mounted() {
         this.$http
-          .get("/connect/" + item.data.datacon.connectId)
-          .then((res) => {
-            const { errno, data } = res.data;
-            if (errno === 0) {
-              // console.log(data.data);
-              item.data.generated = data.data;
-            }
-          })
-          .catch(() => {});
-      } else if (item.data.datacon.type == "get") {
-        clearInterval(interval);
-        let time = item.data.datacon.interval ? item.data.datacon.interval : 1;
-        interval = setInterval(() => {
-          this.$http
-            .get(item.data.datacon.getUrl)
+            .get('/chart/' + this.$route.params.id)
             .then((res) => {
-              item.data.generated = res.data;
+                const { errno, data } = res.data
+                if (errno === 0) {
+                    this.title = data.title
+                    // this.chartData = data.chartData
+                    this.$store.commit('initChartData', data.chartData)
+                }
             })
-            .catch(() => {});
-        }, time * 1000);
-      }
+            .catch(() => {})
     },
-    generateScreenShot() {
-      let that = this;
-      return new Promise(function (resolve, reject) {
-        let screenRef = that.$refs["screenContainer"].$refs["screen"];
-        html2canvas(screenRef, {
-          backgroundColor: "#142E48",
-        }).then((canvas) => {
-          let dataURL = canvas.toDataURL("image/png");
-          resolve(dataURL);
-        });
-      });
+    beforeDestroy() {
+        clearInterval(interval)
     },
-  },
-};
+    methods: {
+        ...mapMutations(['addComponent', 'deleteComponent']),
+        changeScale(scale) {
+            this.scale = scale
+        },
+        saveChartData() {
+            this.generateScreenShot().then((url) => {
+                this.$http
+                    .put('/chart/' + this.$route.params.id, {
+                        img: url,
+                        chartData: this.chartData,
+                    })
+                    .then((res) => {
+                        const { errno } = res.data
+                        if (errno === 0) {
+                            this.publishPopVisible = true
+                            this.$message({
+                                type: 'success',
+                                message: '保存成功',
+                            })
+                        }
+                    })
+                    .catch(() => {})
+            })
+        },
+        generateData(item) {
+            if (item.data.datacon.type === 'raw') {
+                item.data.generated = item.data.datacon.data
+            } else if (item.data.datacon.type === 'connect') {
+                this.$http
+                    .get('/connect/' + item.data.datacon.connectId)
+                    .then((res) => {
+                        const { errno, data } = res.data
+                        if (errno === 0) {
+                            // console.log(data.data);
+                            item.data.generated = data.data
+                        }
+                    })
+                    .catch(() => {})
+            } else if (item.data.datacon.type === 'get') {
+                clearInterval(interval)
+                const time = item.data.datacon.interval ? item.data.datacon.interval : 1
+                interval = setInterval(() => {
+                    this.$http
+                        .get(item.data.datacon.getUrl)
+                        .then((res) => {
+                            item.data.generated = res.data
+                        })
+                        .catch(() => {})
+                }, time * 1000)
+            }
+        },
+        generateScreenShot() {
+            const that = this
+            return new Promise(function(resolve, reject) {
+                const screenRef = that.$refs['screenContainer'].$refs['screen']
+                html2canvas(screenRef, {
+                    backgroundColor: '#142E48',
+                }).then((canvas) => {
+                    const dataURL = canvas.toDataURL('image/png')
+                    resolve(dataURL)
+                })
+            })
+        },
+    },
+}
 </script>
 
 <style lang="scss" scoped>

@@ -1,81 +1,81 @@
-<template >
-  <div class="toolbar">
-    <div class="toolbox">
-      <div class="tool-list">
-        <div
-          class="btn"
-          v-for="(item, index) in btnList"
-          :class="{ active: panelKey === item.key }"
-          @click="showPanel(item.key)"
-          :key="index"
-        >
-          <i class="iconfont" :class="'icon-' + item.key"></i>
+<template>
+    <div class="toolbar">
+        <div class="toolbox">
+            <div class="tool-list">
+                <div
+                    v-for="(item, index) in btnList"
+                    :key="index"
+                    class="btn"
+                    :class="{ active: panelKey === item.key }"
+                    @click="showPanel(item.key)"
+                >
+                    <i class="iconfont" :class="'icon-' + item.key" />
+                </div>
+            </div>
+            <div
+                class="btn"
+                :class="{ active: panelKey === 'layers' }"
+                @click="showPanel('layers')"
+            >
+                <i class="iconfont icon-layer" />
+            </div>
         </div>
-      </div>
-      <div
-        class="btn"
-        :class="{ active: panelKey === 'layers' }"
-        @click="showPanel('layers')"
-      >
-        <i class="iconfont icon-layer"></i>
-      </div>
+        <div v-show="panelKey" class="collapse-panel">
+            <SidePanel :panel-key="panelKey" />
+        </div>
     </div>
-    <div class="collapse-panel" v-show="panelKey">
-      <SidePanel :panelKey="panelKey"></SidePanel>
-    </div>
-  </div>
 </template>
 
 <script>
-import SidePanel from './SidePanel.vue';
+import SidePanel from './SidePanel.vue'
 
 export default {
-  components: {
-    SidePanel,
-  },
-  data() {
-    return {
-      panelKey: '',
-      btnList: [
-        {
-          key: 'chart',
-          name: '图表',
-        },
-        {
-          key: 'text',
-          name: '文字',
-        },
-        {
-          key: 'picture',
-          name: '图片',
-        },
-        {
-          key: 'tools',
-          name: '组件',
-        },
-        {
-          key: 'picture',
-          name: '素材',
-        },
-      ],
-      showCollapsePanel: false,
-    };
-  },
-  computed: {
-    chartData() {
-      return this.$parent.chartData;
+    components: {
+        SidePanel,
     },
-  },
-  methods: {
-    showPanel(key) {
-      if (this.panelKey === key) {
-        this.panelKey = '';
-      } else {
-        this.panelKey = key;
-      }
+    data() {
+        return {
+            panelKey: '',
+            btnList: [
+                {
+                    key: 'chart',
+                    name: '图表',
+                },
+                {
+                    key: 'text',
+                    name: '文字',
+                },
+                {
+                    key: 'picture',
+                    name: '图片',
+                },
+                {
+                    key: 'tools',
+                    name: '组件',
+                },
+                {
+                    key: 'picture',
+                    name: '素材',
+                },
+            ],
+            showCollapsePanel: false,
+        }
     },
-  },
-};
+    computed: {
+        chartData() {
+            return this.$parent.chartData
+        },
+    },
+    methods: {
+        showPanel(key) {
+            if (this.panelKey === key) {
+                this.panelKey = ''
+            } else {
+                this.panelKey = key
+            }
+        },
+    },
+}
 </script>
 
 <style lang="scss" scoped>

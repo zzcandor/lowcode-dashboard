@@ -1,40 +1,40 @@
-<template >
-  <div>
-    <div class="screen">
-      <div class="logo">低代码大屏</div>
-      <div class="desc">一站式数据大屏制作平台</div>
-      <transition name="slide-fade">
-        <div class="login-box" v-if="show">
-          <div class="radio-group">
-            <div
-              class="radio-btn"
-              :class="{ active: tab == 'login' }"
-              @click="tab = 'login'"
-            >
-              登录
+<template>
+    <div>
+        <div class="screen">
+            <div class="logo">低代码大屏</div>
+            <div class="desc">一站式数据大屏制作平台</div>
+            <transition name="slide-fade">
+                <div v-if="show" class="login-box">
+                    <div class="radio-group">
+                        <div
+                            class="radio-btn"
+                            :class="{ active: tab === 'login' }"
+                            @click="tab = 'login'"
+                        >
+                            登录
+                        </div>
+                        <div
+                            class="radio-btn"
+                            :class="{ active: tab === 'reg' }"
+                            @click="tab = 'reg'"
+                        >
+                            注册
+                        </div>
+                    </div>
+                    <el-input v-model="form.user" placeholder="请输入用户名" />
+                    <el-input
+                        v-model="form.password"
+                        placeholder="请输入密码"
+                        :type="tab === 'login' ? 'password' : 'text'"
+                        style="margin-top: 10px"
+                    />
+                </div>
+            </transition>
+            <div class="btn-wrapper">
+                <span class="btn" @click="handleClick">进入系统</span>
             </div>
-            <div
-              class="radio-btn"
-              :class="{ active: tab == 'reg' }"
-              @click="tab = 'reg'"
-            >
-              注册
-            </div>
-          </div>
-          <el-input placeholder="请输入用户名" v-model="form.user"></el-input>
-          <el-input
-            placeholder="请输入密码"
-            :type="tab == 'login' ? 'password' : 'text'"
-            v-model="form.password"
-            style="margin-top: 10px"
-          ></el-input>
         </div>
-      </transition>
-      <div class="btn-wrapper">
-        <span class="btn" @click="handleClick">进入系统</span>
-      </div>
     </div>
-  </div>
 </template>
 
 <script>

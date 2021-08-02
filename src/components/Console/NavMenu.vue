@@ -1,48 +1,51 @@
-<template >
-  <div class="sidebar">
-    <div class="logo">
-      <router-link to="/">低代码大屏</router-link>
+<template>
+    <div class="sidebar">
+        <div class="logo">
+            <router-link to="/">低代码大屏</router-link>
+        </div>
+        <router-link
+            v-for="item in menuList"
+            :key="item.name"
+            class="sidebar-item"
+            :class="{ active: routePath === item.path }"
+            :to="item.path"
+        >
+            <i :class="item.icon" /><span>{{ item.name }}</span>
+        </router-link>
     </div>
-    <router-link class="sidebar-item"
-      v-for="item in menuList" :key="item.name"
-      :class="{ active: routePath == item.path }"
-      :to="item.path">
-        <i :class="item.icon"></i><span>{{item.name}}</span>
-    </router-link>
-  </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      menuList: [
-        {
-          name: '数据管理',
-          icon: 'el-icon-menu',
-          path: '/console/data',
-        }, {
-          name: '我的可视化',
-          icon: 'el-icon-document',
-          path: '/console/chart',
+    data() {
+        return {
+            menuList: [
+                {
+                    name: '数据管理',
+                    icon: 'el-icon-menu',
+                    path: '/console/data',
+                }, {
+                    name: '我的可视化',
+                    icon: 'el-icon-document',
+                    path: '/console/chart',
+                },
+            ],
+        }
+    },
+    computed: {
+        routePath() {
+            return this.$route.path
         },
-      ],
-    };
-  },
-  computed: {
-    routePath() {
-      return this.$route.path;
     },
-  },
-  mounted() {
+    mounted() {
     // this.routePath = this.$route.path;
-  },
-  methods: {
-    goPath(path) {
-      this.$router.push(path);
     },
-  },
-};
+    methods: {
+        goPath(path) {
+            this.$router.push(path)
+        },
+    },
+}
 </script>
 
 <style lang="scss" scoped>
