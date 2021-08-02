@@ -3,18 +3,18 @@ module.exports = {
     parserOptions: {
         parser: '@babel/eslint-parser',
         ecmaFeatures: {
-            ecmaVersion:6,
-            "sourceType": "module",
-            ecmaFeature:{
+            ecmaVersion: 6,
+            'sourceType': 'module',
+            ecmaFeature: {
                 jsx: true
             }
             // experimentalObjectRestSpread: true,
             // jsx: true
         }
     },
-    "rules": {
-      "eqeqeq": ["error", "always", { "null": "ignore" }],
-      "no-undef": "off"
+    'rules': {
+        'eqeqeq': ['error', 'always', { 'null': 'ignore' }],
+        'no-undef': 'off'
     },
     env: {
         browser: true,
@@ -22,7 +22,6 @@ module.exports = {
         es6: true
     },
     extends: [
-        './globals-bmap.eslintrc.js',
         './lang-js.eslintrc.js',
         './lang-vue.eslintrc.js'
     ],
