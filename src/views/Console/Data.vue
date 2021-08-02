@@ -1,34 +1,38 @@
 <template>
-  <div>
-    <el-row style="margin-bottom: 20px">
-      <el-button type="primary" @click="addData">新增数据源</el-button>
-    </el-row>
-    <el-table :data="connectList">
-      <el-table-column prop="_id" label="id">
-        <template slot-scope="scope"
-          ><span>{{ scope.row._id | simplifyID }}</span></template
-        >
-      </el-table-column>
-      <el-table-column prop="name" label="名称"></el-table-column>
-      <el-table-column prop="createdAt" label="上传时间">
-        <template slot-scope="scope"
-          ><span>{{
-            $dayjs(scope.row.createdAt).format("YYYY-MM-DD HH:mm")
-          }}</span></template
-        >
-      </el-table-column>
-      <el-table-column label="操作">
-        <template slot-scope="scope">
-          <el-button type="text" size="small" @click="renameData(scope.row)"
-            >重命名</el-button
-          >
-          <el-button type="text" size="small" @click="deleteData(scope.row._id)"
-            >删除</el-button
-          >
-        </template>
-      </el-table-column>
-    </el-table>
-  </div>
+    <div>
+        <el-row style="margin-bottom: 20px">
+            <el-button type="primary" @click="addData">新增数据源</el-button>
+        </el-row>
+        <el-table :data="connectList">
+            <el-table-column prop="_id" label="id">
+                <template
+                    slot-scope="scope"
+                ><span>{{ scope.row._id | simplifyID }}</span></template>
+            </el-table-column>
+            <el-table-column prop="name" label="名称" />
+            <el-table-column prop="createdAt" label="上传时间">
+                <template
+                    slot-scope="scope"
+                ><span>{{
+                    $dayjs(scope.row.createdAt).format("YYYY-MM-DD HH:mm")
+                }}</span></template>
+            </el-table-column>
+            <el-table-column label="操作">
+                <template slot-scope="scope">
+                    <el-button
+                        type="text"
+                        size="small"
+                        @click="renameData(scope.row)"
+                    >重命名</el-button>
+                    <el-button
+                        type="text"
+                        size="small"
+                        @click="deleteData(scope.row._id)"
+                    >删除</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+    </div>
 </template>
 
 <script>

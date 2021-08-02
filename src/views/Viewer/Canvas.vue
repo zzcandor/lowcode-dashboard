@@ -22,7 +22,7 @@
                 }"
             >
                 <div
-                    v-if="item.data.type == 'chart'"
+                    v-if="item.data.type === 'chart'"
                     class="filler"
                     :style="{
                         width: '100%',
@@ -31,7 +31,7 @@
                     }"
                 >
                     <ve-map
-                        v-if="item.data.settings.type == 'map'"
+                        v-if="item.data.settings.type === 'map'"
                         :width="item.w + 'px'"
                         :height="item.h + 'px'"
                         :data="item.data.generated"
@@ -39,7 +39,7 @@
                         @ready-once="generateData(item)"
                     />
                     <ve-liquidfill
-                        v-else-if="item.data.settings.type == 'liquidfill'"
+                        v-else-if="item.data.settings.type === 'liquidfill'"
                         :width="item.w + 'px'"
                         :height="item.h + 'px'"
                         :data="item.data.generated"
@@ -55,7 +55,7 @@
                     />
                 </div>
                 <div
-                    v-if="item.data.type == 'text'"
+                    v-if="item.data.type === 'text'"
                     class="filler"
                     :style="{
                         width: '100%',
@@ -87,7 +87,7 @@
                     />
                 </div>
                 <div
-                    v-if="item.data.type == 'image'"
+                    v-if="item.data.type === 'image'"
                     class="filler"
                     :style="{
                         width: '100%',
@@ -107,7 +107,7 @@
                     </div>
                 </div>
                 <div
-                    v-if="item.data.type == 'border'"
+                    v-if="item.data.type === 'border'"
                     class="filler"
                     :style="{
                         width: '100%',
@@ -160,9 +160,9 @@ export default {
   },
   methods: {
     generateData(item) {
-      if (item.data.datacon.type == "raw") {
+      if (item.data.datacon.type === "raw") {
         item.data.generated = item.data.datacon.data;
-      } else if (item.data.datacon.type == "connect") {
+      } else if (item.data.datacon.type === "connect") {
         this.$http
           .get("/connect/" + item.data.datacon.connectId)
           .then((res) => {
@@ -173,7 +173,7 @@ export default {
             }
           })
           .catch(() => {});
-      } else if (item.data.datacon.type == "get") {
+      } else if (item.data.datacon.type === "get") {
         clearInterval(interval);
         let time = item.data.datacon.interval ? item.data.datacon.interval : 1;
         interval = setInterval(() => {

@@ -58,8 +58,8 @@ router.post('/', async (ctx, next) => {
     uid: body.uid,
     view: 0,
     chartData: {
-      "w": 1200,
-      "h": 800,
+      "w": 1920,
+      "h": 1080,
       "bgcolor": "#FFF",
       "bgimage": "",
       "bgimagesize": "cover",

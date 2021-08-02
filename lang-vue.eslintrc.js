@@ -15,6 +15,7 @@ module.exports = {
         }],
         'vue/require-default-prop': 0,
         'vue/singleline-html-element-content-newline': 'off',
+        'vue/no-v-html': 'off',
         'vue/multiline-html-element-content-newline': 'off',
         'vue/name-property-casing': ['error', 'PascalCase'],
         'vue/html-indent': [2, 4],
