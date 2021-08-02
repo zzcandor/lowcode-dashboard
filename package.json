@@ -54,29 +54,6 @@
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.5.21"
   },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "@vue/airbnb"
-    ],
-    "rules": {
-      "linebreak-style": [
-        "off",
-        "windows"
-      ],
-      "singleQuote": false,
-      "no-param-reassign": 0,
-      "no-underscore-dangle": 0,
-      "global-require": 0
-    },
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
-  },
   "postcss": {
     "plugins": {
       "autoprefixer": {}
