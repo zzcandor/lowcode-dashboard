@@ -8,15 +8,15 @@
         <div class="weather-data">
             <div class="flex-item">
                 <img
-                    
-                    src='../../assets/img/temperature.png'
+                    src="../../assets/img/temperature.png"
                     alt=""
                 />
                 <span class="weather">{{ valueData.weather }}</span>
             </div>
-            <div  class="flex-item">
+            <div class="flex-item">
                 <img
-                    src='../../assets/img/temperature.png'
+
+                    src="../../assets/img/temperature.png"
                     alt=""
                 />
                 <span class="temperature">{{ valueData.temperature }}℃</span>
