@@ -1,6 +1,5 @@
 > lowcode-dashboard
 
-基于https://github.com/ddiu8081/ChartFun改造
 <img src="./public/低代码大屏.png" width="200"></img>
 
 > Make data reports by dragging and dropping :)
@@ -68,6 +67,7 @@ node ./server/app.js
 * [kirillmurashov / vue-drag-resize](https://github.com/kirillmurashov/vue-drag-resize)
 * [koajs / koa](https://github.com/koajs/koa)
 * [标尺工具 vue-ruler-tool](https://github.com/gorkys/vue-ruler-tool)
+* [ChartFun](https://github.com/ddiu8081/ChartFun)
 
 ## LICENSE
 
