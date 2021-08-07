@@ -96,7 +96,7 @@ const chart = {
             } else if (componentType === 'gauge') {
                 initData = gaugeConfig
             } else {
-                initData = chartsConfig
+                initData = chartsConfig(componentType)
             }
             const component = {
                 name: '新建图层' + (state.chartData.elements.length + 1),
