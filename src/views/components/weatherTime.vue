@@ -1,4 +1,3 @@
-
 <template>
     <div class="weather-con">
         <div class="weather-pm">
@@ -8,15 +7,14 @@
         <div class="weather-data">
             <div class="flex-item">
                 <img
-                    
-                    src='../../assets/img/temperature.png'
+                    src="../../assets/img/temperature.png"
                     alt=""
                 />
                 <span class="weather">{{ valueData.weather }}</span>
             </div>
-            <div  class="flex-item">
+            <div class="flex-item">
                 <img
-                    src='../../assets/img/temperature.png'
+                    src="../../assets/img/temperature.png"
                     alt=""
                 />
                 <span class="temperature">{{ valueData.temperature }}℃</span>
@@ -30,33 +28,39 @@
 </template>
 
 <script>
-/* eslint-disable */
 export default {
     props: {
-      valueData: {
-        type: Object,
-        default: {}
-      },
-    },
-};
+        valueData: {
+            type: Object,
+            default: function() {
+                return {}
+            }
+        }
+    }
+}
 </script>
-
 <style lang="scss">
     .weather-con{
         font-size: 18px;
         color: #b7cadf;
-        // width: 376px;
+        height: 100%;
+        width: 100%;
+        min-height: 100px;
+        min-width: 400px;
         background-color: rgba(4,20,17,.88);
-        color: #bfe1cf;
-        padding: 20px;
+        // padding: 20px;
         .weather-pm{
             display: flex;
             align-items: center;
             color: #b7cadf;
-            padding: 0px 10px;
+            padding: 20px;
+            span{
+                padding-left: 5px;
+            }
         }
         .weather-data{
             display: flex;
+            height: calc(100% - 108px);
             align-items: center;
             justify-content: space-around;
             img{
