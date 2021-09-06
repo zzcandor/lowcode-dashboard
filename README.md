@@ -67,6 +67,7 @@ node ./server/app.js
 * [kirillmurashov / vue-drag-resize](https://github.com/kirillmurashov/vue-drag-resize)
 * [koajs / koa](https://github.com/koajs/koa)
 * [标尺工具 vue-ruler-tool](https://github.com/gorkys/vue-ruler-tool)
+* [ChartFun](https://github.com/ddiu8081/ChartFun)
 
 ## LICENSE
 

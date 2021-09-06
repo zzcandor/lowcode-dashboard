@@ -1,3 +1,4 @@
+import chartsConfig, { gaugeConfig } from '@/config/charts'
 const chart = {
     state: {
         chartData: {
@@ -92,41 +93,10 @@ const chart = {
                         airQuality: '雾霾'
                     }
                 }
+            } else if (componentType === 'gauge') {
+                initData = gaugeConfig
             } else {
-                initData = {
-                    type: 'chart',
-                    settings: {
-                        type: componentType,
-                    },
-                    datacon: {
-                        type: 'raw',
-                        connectId: '',
-                        data: {
-                            columns: ['日期', '访问用户'],
-                            rows: [
-                                { 日期: '1月1日', 访问用户: 1523 },
-                                { 日期: '1月2日', 访问用户: 1223 },
-                                { 日期: '1月3日', 访问用户: 2123 },
-                                { 日期: '1月4日', 访问用户: 4123 },
-                                { 日期: '1月5日', 访问用户: 3123 },
-                                { 日期: '1月6日', 访问用户: 7123 },
-                            ],
-                        },
-                        getUrl: '',
-                        interval: 2,
-                    },
-                    generated: {
-                        columns: ['日期', '访问用户'],
-                        rows: [
-                            { 日期: '1月1日', 访问用户: 1523 },
-                            { 日期: '1月2日', 访问用户: 1223 },
-                            { 日期: '1月3日', 访问用户: 2123 },
-                            { 日期: '1月4日', 访问用户: 4123 },
-                            { 日期: '1月5日', 访问用户: 3123 },
-                            { 日期: '1月6日', 访问用户: 7123 },
-                        ],
-                    },
-                }
+                initData = chartsConfig(componentType)
             }
             const component = {
                 name: '新建图层' + (state.chartData.elements.length + 1),

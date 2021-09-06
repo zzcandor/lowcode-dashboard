@@ -1,6 +1,7 @@
 <template>
     <div>
         <div class="screen">
+            <div class="bg" />
             <div class="logo">低代码大屏</div>
             <div class="desc">一站式数据大屏制作平台</div>
             <transition name="slide-fade">
@@ -101,10 +102,19 @@ export default {
   position: absolute;
   width: 100vw;
   height: 100vh;
-  background: url("../assets/img/bg.png");
   background-position: 50%;
-  background-size: cover;
-  background-repeat: no-repeat;
+
+  .bg {
+    width: 100vw;
+    height: 100vh;
+    background: url("../assets/img/bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    z-index: -1;
+    filter: brightness(0.5);
+  }
+  
 }
 .logo {
   height: 72px;
@@ -112,7 +122,7 @@ export default {
   text-align: center;
   font-weight: bold;
   font-size: 36px;
-  color: #515151;
+  color: #FFF;
   margin-top: 180px;
 
   &::after {

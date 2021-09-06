@@ -136,11 +136,11 @@ export default {
                         //   name: "K线图",
                         //   img: require("@/assets/img/charts/candle.png")
                         // },
-                        // {
-                        //   id: "gauge",
-                        //   name: "仪表盘",
-                        //   img: require("@/assets/img/charts/gauge.png")
-                        // },
+                        {
+                            id: 'gauge',
+                            name: '仪表盘',
+                            img: require('@/assets/img/charts/gauge.png')
+                        },
                         {
                             id: 'liquidfill',
                             name: '水球图',
@@ -163,16 +163,16 @@ export default {
                         },
                     ],
                 },
-                // picture: {
-                //     name: '图片',
-                //     children: [
-                //         {
-                //             id: 'image',
-                //             name: '图片',
-                //             img: require('@/assets/img/charts/image.png'),
-                //         },
-                //     ],
-                // },
+                picture: {
+                    name: '图片',
+                    children: [
+                        {
+                            id: 'image',
+                            name: '图片',
+                            img: require('@/assets/img/charts/image.png'),
+                        },
+                    ],
+                },
                 tools: {
                     name: '组件',
                     children: [
@@ -214,7 +214,7 @@ export default {
         cloneComponent(origin) {
             const list = this.componentList[this.panelKey].children
             const item = list[origin.oldIndex]
-            this.handleAddComponent(item)
+            this.$store.dispatch('handleAddComponentFromIcon', item.id)
         },
 
     },

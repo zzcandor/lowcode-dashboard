@@ -22,7 +22,6 @@ module.exports = {
         es6: true
     },
     extends: [
-        './globals-bmap.eslintrc.js',
         './lang-js.eslintrc.js',
         './lang-vue.eslintrc.js'
     ],
