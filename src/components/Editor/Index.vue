@@ -50,7 +50,7 @@ export default {
     computed: {
         currentElement() {
             if (this.currentElementIndex >= 0) {
-                return this.chartData.elements[this.currentElementIndex]
+                return this.chartData.elements[this.currentElementIndex] || {}
             }
             return {}
         },

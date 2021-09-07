@@ -39,6 +39,7 @@
                 >
                     <div
                         ref="screen"
+                        id="screen"
                         class="screen"
                         :style="screenStyle"
                         @click.self="handleActivated(-1)"
