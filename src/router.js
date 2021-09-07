@@ -16,35 +16,12 @@ const router = new Router({
             },
         },
         {
-            path: '/console',
-            component: () => import('./components/Console/Index.vue'),
-            children: [
-                {
-                    path: 'data',
-                    component: () => import('./views/Console/Data.vue'),
-                    meta: {
-                        title: '数据管理',
-                    },
-                },
-                {
-                    path: 'data/add',
-                    component: () => import('./views/Console/DataAdd.vue'),
-                    meta: {
-                        title: '添加数据源',
-                    },
-                },
-                {
-                    path: 'chart',
-                    component: () => import('./views/Console/Chart.vue'),
-                    meta: {
-                        title: '我的可视化',
-                    },
-                },
-                {
-                    path: '',
-                    redirect: 'chart',
-                },
-            ],
+            path: '/home',
+            name: 'home',
+            component: () => import('./views/Home/Index.vue'),
+            meta: {
+                title: '低代码大屏 | 一站式数据大屏制作平台',
+            },
         },
         {
             path: '/edit',
