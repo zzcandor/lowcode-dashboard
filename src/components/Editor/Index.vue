@@ -35,6 +35,12 @@ export default {
         Config,
         ScaleBar,
     },
+    provide(){
+        return {
+            chartData: this.chartData,
+          CElement: ()=> this.currentElement,
+        };
+    },
     data() {
         return {
             title: '',
@@ -49,7 +55,8 @@ export default {
     },
     computed: {
         currentElement() {
-            if (this.currentElementIndex >= 0) {
+          console.log(22);
+          if (this.currentElementIndex >= 0) {
                 return this.chartData.elements[this.currentElementIndex] || {}
             }
             return {}
