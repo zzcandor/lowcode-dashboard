@@ -1,15 +1,17 @@
 // 底层组件库
 import background from './background'
 import general from './general'
-import chart from './chart'
+import chartConfig from './chart'
 import textConfig from './text'
 import imageConig from './image'
+import borderConig from './border'
 export default {
   components: {
       background,
       general,
-      chart,
+      chartConfig,
       textConfig,
       imageConig,
+      borderConig,
   }
 }

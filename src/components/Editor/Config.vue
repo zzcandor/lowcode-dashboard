@@ -15,85 +15,19 @@
                         基础
                     </div>
                     <div
-                        v-show="currentElement.data.type === 'chart'"
                         class="radio-btn"
                         :class="{ active: thisKey === 'data' }"
                         @click="thisKey = 'data'"
                     >
-                        数据
-                    </div>
-                    <div
-                        v-show="currentElement.data.type === 'text'"
-                        class="radio-btn"
-                        :class="{ active: thisKey === 'data' }"
-                        @click="thisKey = 'data'"
-                    >
-                        文字
-                    </div>
-                    <div
-                        v-show="currentElement.data.type === 'image'"
-                        class="radio-btn"
-                        :class="{ active: thisKey === 'data' }"
-                        @click="thisKey = 'data'"
-                    >
-                        图片
-                    </div>
-                    <div
-                        v-show="currentElement.data.type === 'border'"
-                        class="radio-btn"
-                        :class="{ active: thisKey === 'data' }"
-                        @click="thisKey = 'data'"
-                    >
-                        边框
+                        {{btnName[currentElement.data.type]}}
                     </div>
                 </div>
             </div>
             <div v-show="thisKey === 'general'" class="panel">
               <general></general>
             </div>
-            <div
-                v-show="thisKey === 'data' &amp;&amp; currentElement.data.type === 'chart'"
-                class="panel"
-            >
-              <chart></chart>
-            </div>
-            <div
-                v-show="thisKey === 'data' &amp;&amp; currentElement.data.type === 'text'"
-                class="panel"
-            >
-              <textConfig></textConfig>
-            </div>
-            <div
-                v-show="thisKey === 'data' &amp;&amp; currentElement.data.type === 'image'"
-                class="panel"
-            >
-              <imageConig></imageConig>
-            </div>
-            <div
-                v-show="thisKey === 'data' &amp;&amp; currentElement.data.type === 'border'"
-                class="panel"
-            >
-                <div class="config-box">
-                    <div class="title">边框样式</div>
-                    <el-select
-                        v-model="currentElement.data.datacon.borderId"
-                        placeholder="请选择"
-                        style="width: 100%; margin-bottom: 10px"
-                    >
-                        <el-option label="古典-棕" :value="1" />
-                        <el-option label="古典-白" :value="2" />
-                        <el-option label="科技" :value="3" />
-                    </el-select>
-                </div>
-                <div class="config-box">
-                    <div class="title">透明度</div>
-                    <el-slider
-                        v-model="currentElement.data.datacon.opacity"
-                        :max="1"
-                        :step="0.01"
-                        show-input="show-input"
-                    />
-                </div>
+            <div v-show="thisKey === 'data'" class="panel">
+              <component :is="currentElement.data.type+'Config'"></component>
             </div>
         </div>
     </div>
@@ -116,6 +50,12 @@ export default {
       },
       thisKey: "general",
       connectList: [],
+        btnName:{
+            chart:'数据',
+            text:'文字',
+            image:'图片',
+            border:'边框',
+        },
     };
   },
   computed:{
