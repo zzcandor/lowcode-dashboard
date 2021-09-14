@@ -36,6 +36,8 @@ const chart = {
     actions: {
         handleAddComponentFromIcon({ commit, state }, componentType) {
             let initData = {}
+            console.log(componentType);
+
             if (componentType === 'text') {
                 initData = {
                     type: 'text',

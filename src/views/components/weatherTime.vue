@@ -32,12 +32,12 @@
 <script>
 /* eslint-disable */
 export default {
-    props: {
-      valueData: {
-        type: Object,
-        default: {}
-      },
-    },
+    props: ['item'],
+    computed:{
+        valueData(){
+            return this.item.data.datacon
+        }
+    }
 };
 </script>
 

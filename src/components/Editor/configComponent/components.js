@@ -3,15 +3,15 @@ import background from './background'
 import general from './general'
 import chartConfig from './chart'
 import textConfig from './text'
-import imageConig from './image'
-import borderConig from './border'
+import imageConfig from './image'
+import borderConfig from './border'
 export default {
   components: {
       background,
       general,
       chartConfig,
       textConfig,
-      imageConig,
-      borderConig,
+      imageConfig,
+      borderConfig,
   }
 }

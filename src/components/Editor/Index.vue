@@ -55,7 +55,6 @@ export default {
     },
     computed: {
         currentElement() {
-          console.log(22);
           if (this.currentElementIndex >= 0) {
                 return this.chartData.elements[this.currentElementIndex] || {}
             }
