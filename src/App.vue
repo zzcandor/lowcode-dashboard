@@ -13,6 +13,7 @@ body {
   padding: 0;
   min-height: 100vh;
   user-select: none;
+  background: #171b22;
 }
 .el-header {
   padding: 0;

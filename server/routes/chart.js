@@ -7,12 +7,27 @@ router.prefix('/chart');
 
 // 获取全部实例列表
 router.get('/', async (ctx, next) => {
-  const rows = await chartModel.find({ 'uid': ctx.request.query.uid }).select('-chartData');
-  ctx.body = {
-    errno: 0,
-    data: {
-      chartList: rows
+  const { pageNo, pageSize, uid } = ctx.request.query
+  const rows = chartModel.find({ uid }).select('-chartData');
+  if (pageNo && pageSize) {
+    const [chartList, total] = await Promise.all([
+      rows.skip((Number(pageNo) - 1) * Number(pageSize)).limit(Number(pageSize)),
+      chartModel.find({ uid }).select('-chartData').count()])
+    ctx.body = {
+      errno: 0,
+      data: {
+        chartList,
+        total,
+      } 
     }
+  } else {
+    const chartList = await rows.exec()
+    ctx.body = {
+      errno: 0,
+      data: {
+        chartList,
+      }
+    }    
   }
 });
 
