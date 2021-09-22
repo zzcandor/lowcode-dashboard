@@ -23,11 +23,11 @@ export default {
                 {
                     name: '数据管理',
                     icon: 'el-icon-menu',
-                    path: '/console/data',
+                    path: '/home',
                 }, {
                     name: '我的可视化',
                     icon: 'el-icon-document',
-                    path: '/console/chart',
+                    path: '/home',
                 },
             ],
         }

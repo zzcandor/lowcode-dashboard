@@ -128,7 +128,7 @@ export default {
             },
             page: {
                 page: 1,
-                size: 50,
+                size: 10,
                 total: 100,
             },
             chartList: [],
@@ -142,11 +142,12 @@ export default {
     methods: {
         getData() {
             this.$http
-                .get('/chart?uid=' + this.user.uid)
+                .get(`/chart?uid=${this.user.uid}&pageNo=${this.page.page ?? ''}&pageSize=${this.page.size ?? ''}`)
                 .then((res) => {
                     const { errno, data } = res.data
                     if (errno === 0) {
                         this.chartList = data.chartList
+                        this.page.total = data.total
                     }
                 })
                 .catch(() => {})
@@ -311,6 +312,9 @@ export default {
   .content{
     display: flex;
     flex-wrap: wrap;
+    &::-webkit-scrollbar {
+    display: none;
+    }
     &__item{
       position: relative;
       margin: 16px;

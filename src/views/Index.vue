@@ -58,7 +58,7 @@ export default {
     handleClick() {
       if (!this.show) {
         if (localStorage.getItem("uid")) {
-          this.$router.push("console");
+          this.$router.push("home");
         } else {
           this.show = true;
         }
@@ -85,7 +85,7 @@ export default {
               this.$store.commit('SET_USERINFO', userInfo)
               localStorage.setItem("uid", data.uid);
               localStorage.setItem("user", data.name);
-              this.$router.push("console");
+              this.$router.push("home");
             } else {
               this.$message.error(errmsg);
             }
