@@ -5,11 +5,11 @@ import cImage from './cImagecontainer'
 import cMask from './cMask'
 import cText from './cTextcontainer'
 export default {
-  components: {
-      cWeatherTime,
-      cBorder,
-      cImage,
-      cMask,
-      cText,
-  }
+    components: {
+        cWeatherTime,
+        cBorder,
+        cImage,
+        cMask,
+        cText,
+    }
 }

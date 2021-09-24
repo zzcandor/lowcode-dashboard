@@ -26,7 +26,7 @@
 
 <script>
 export default {
-    name: "borderConfig",
+    name: 'BorderConfig',
     inject: ['CElement'],
     computed: {
         currentElement() {

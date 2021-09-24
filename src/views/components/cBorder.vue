@@ -8,7 +8,7 @@
 
 <script>
 export default {
-    name: "CBorder",
+    name: 'CBorder',
     props: ['item'],
 }
 </script>

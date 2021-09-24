@@ -6,12 +6,12 @@ import textConfig from './text'
 import imageConfig from './image'
 import borderConfig from './border'
 export default {
-  components: {
-      background,
-      general,
-      chartConfig,
-      textConfig,
-      imageConfig,
-      borderConfig,
-  }
+    components: {
+        background,
+        general,
+        chartConfig,
+        textConfig,
+        imageConfig,
+        borderConfig,
+    }
 }

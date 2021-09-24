@@ -3,8 +3,8 @@ const chart = {
     state: {
         chartData: {
             elements: [],
-            w:500,
-            h:500
+            w: 500,
+            h: 500
         },
         currentElementIndex: -1,
     },
@@ -36,7 +36,7 @@ const chart = {
     actions: {
         handleAddComponentFromIcon({ commit, state }, componentType) {
             let initData = {}
-            console.log(componentType);
+            console.log(componentType)
 
             if (componentType === 'text') {
                 initData = {

@@ -38,8 +38,8 @@
                     group="componentsGroup"
                 >
                     <div
-                        ref="screen"
                         id="screen"
+                        ref="screen"
                         class="screen"
                         :style="screenStyle"
                         @click.self="handleActivated(-1)"
@@ -72,25 +72,27 @@
                                 @resizing="handleResize(item, arguments[0])"
                                 @dragging="handleDrag(item, arguments[0])"
                             >
-                                <div  @contextmenu.prevent="handleContextMenu($event,item,index)" class="box" style="width: 100%;height: 100%;">
+                                <div class="box" style="width: 100%;height: 100%;" @contextmenu.prevent="handleContextMenu($event,item,index)">
                                     <div
                                         class="filler"
                                         :style="{
-                                        width: '100%',
-                                        height: '100%',
-                                        backgroundColor: item.bgcolor,
-                                    }"
+                                            width: '100%',
+                                            height: '100%',
+                                            backgroundColor: item.bgcolor,
+                                        }"
                                     >
                                         <template v-if="item.data.type === 'chart'">
-                                            <component :is="`ve-${item.data.settings.type}`"
-                                                       :width="item.w + 'px'"
-                                                       :height="item.h + 'px'"
-                                                       :data="item.data.generated"
-                                                       :settings="item.data.settings"
-                                                       @ready-once="generateData(item)"></component>
+                                            <component
+                                                :is="`ve-${item.data.settings.type}`"
+                                                :width="item.w + 'px'"
+                                                :height="item.h + 'px'"
+                                                :data="item.data.generated"
+                                                :settings="item.data.settings"
+                                                @ready-once="generateData(item)"
+                                            />
                                         </template>
                                         <template v-else>
-                                            <component :is="`c-${item.data.type}`" :item="item"></component>
+                                            <component :is="`c-${item.data.type}`" :item="item" />
                                         </template>
 
                                     </div>
@@ -102,25 +104,25 @@
                 </vue-draggable-resizable>
             </vue-ruler-tool>
         </div>
-        <contentMenu ref="contentmenu"></contentMenu>
+        <contentMenu ref="contentmenu" />
     </div>
 </template>
 <script>
 import draggable from 'vuedraggable'
-import cpns from "@/views/components/components";
+import cpns from '@/views/components/components'
 import contentMenu from './contentMenu.vue'
 import { mapGetters } from 'vuex'
 export default {
-    provide () {
+    provide() {
         return {
             contain: this
-        };
+        }
     },
-    mixins:[cpns],
     components: {
         draggable,
         contentMenu,
     },
+    mixins: [cpns],
     // eslint-disable-next-line vue/require-prop-types
     props: ['scale'],
     data() {
@@ -149,14 +151,14 @@ export default {
     },
     methods: {
         // 右键菜单
-        handleContextMenu(e, item = {},index) {
-            this.$nextTick(()=>{
-                this.$refs.contentmenu.show(e.clientX, e.clientY,item,index);
+        handleContextMenu(e, item = {}, index) {
+            this.$nextTick(() => {
+                this.$refs.contentmenu.show(e.clientX, e.clientY, item, index)
             })
         },
-        //隐藏菜单
-        hideCompentMenu(){
-            this.$refs.contentmenu.hide();
+        // 隐藏菜单
+        hideCompentMenu() {
+            this.$refs.contentmenu.hide()
         },
         handleSpaceDown() {
             this.screenDraggable = true

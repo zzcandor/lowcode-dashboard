@@ -1,8 +1,8 @@
 <template>
     <div class="config">
-      <p style="color: #ffffff">{{currentElement.w}}</p>
+        <p style="color: #ffffff">{{ currentElement.w }}</p>
         <div v-if="!currentElement.w" class="public-config">
-          <background></background>
+            <background />
         </div>
         <div v-if="currentElement.w" class="component-config">
             <div class="panel-selector">
@@ -19,15 +19,15 @@
                         :class="{ active: thisKey === 'data' }"
                         @click="thisKey = 'data'"
                     >
-                        {{btnName[currentElement.data.type]}}
+                        {{ btnName[currentElement.data.type] }}
                     </div>
                 </div>
             </div>
             <div v-show="thisKey === 'general'" class="panel">
-              <general></general>
+                <general />
             </div>
             <div v-show="thisKey === 'data'" class="panel">
-              <component :is="currentElement.data.type+'Config'"></component>
+                <component :is="currentElement.data.type + 'Config'" />
             </div>
         </div>
     </div>

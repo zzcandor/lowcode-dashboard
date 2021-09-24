@@ -2,18 +2,18 @@
     <div
         class="imagecontainer"
         :style="{
-                                            backgroundImage: `url(${item.data.datacon.img})`,
-                                            backgroundSize: item.data.datacon.imgSize,
-                                            opacity: item.data.datacon.opacity,
-                                        }"
+            backgroundImage: `url(${item.data.datacon.img})`,
+            backgroundSize: item.data.datacon.imgSize,
+            opacity: item.data.datacon.opacity,
+        }"
     >
-        <div v-show="!item.data.datacon.img" class="placeholder"/>
+        <div v-show="!item.data.datacon.img" class="placeholder" />
     </div>
 </template>
 
 <script>
 export default {
-    name: "Cimagecontainer",
+    name: 'Cimagecontainer',
     props: ['item'],
 }
 </script>

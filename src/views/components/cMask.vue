@@ -7,7 +7,7 @@
 
 <script>
 export default {
-    name: "CMask",
+    name: 'CMask',
     props: ['item'],
 }
 </script>
