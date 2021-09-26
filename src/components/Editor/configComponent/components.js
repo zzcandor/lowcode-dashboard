@@ -5,6 +5,7 @@ import chartConfig from './chart'
 import textConfig from './text'
 import imageConfig from './image'
 import borderConfig from './border'
+import tableConfig from './table'
 export default {
     components: {
         background,
@@ -13,5 +14,6 @@ export default {
         textConfig,
         imageConfig,
         borderConfig,
+        tableConfig,
     }
 }

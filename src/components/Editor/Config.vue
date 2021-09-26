@@ -55,6 +55,7 @@ export default {
             text:'文字',
             image:'图片',
             border:'边框',
+            table:'表格',
         },
     };
   },

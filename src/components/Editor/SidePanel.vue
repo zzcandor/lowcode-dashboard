@@ -191,6 +191,11 @@ export default {
                             name: '天气时间',
                             img: require('@/assets/img/temperature.png'),
                         },
+                        {
+                            id: 'table',
+                            name: '表格',
+                            img: require('@/assets/img/temperature.png'),
+                        },
                     ],
                 },
             },

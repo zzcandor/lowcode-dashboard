@@ -92,7 +92,7 @@
                                             />
                                         </template>
                                         <template v-else>
-                                            <component :is="`c-${item.data.type}`" :item="item" />
+                                            <component :is="`c-${item.data.type}`" :item="item" :config="item.data.config" />
                                         </template>
 
                                     </div>
