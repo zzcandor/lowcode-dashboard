@@ -56,6 +56,7 @@ export default {
             image:'图片',
             border:'边框',
             table:'表格',
+            weatherTime:'天气时间',
         },
     };
   },

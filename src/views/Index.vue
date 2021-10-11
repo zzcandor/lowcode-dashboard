@@ -155,7 +155,7 @@ export default {
       margin: 10px 10px;
       color: #999999;
       &.active {
-        color: #fff;
+        color: #00145F;
         border-bottom: 2px solid #212121;
       }
     }
