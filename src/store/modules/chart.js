@@ -99,6 +99,7 @@ const chart = {
                             ['行9列1', '行9列2', '行9列3'],
                             ['行10列1', '行10列2', '行10列3']
                         ],
+                        dataType: 1,
                         rowNum: 5,
                         headerBGC: '#00BAFF',
                         oddRowBGC: '#003B51',
@@ -110,7 +111,7 @@ const chart = {
                         index: false,
                         indexHeader: '#',
                         carousel: 'single',
-                        hoverPause: true
+                        hoverPause: true,
                     }
                 }
             } else if (componentType === 'weatherTime') {
