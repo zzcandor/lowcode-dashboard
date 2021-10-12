@@ -1,5 +1,5 @@
 <template>
-    <div @click="hideCompentMenu">
+    <div class="canvasBox" @click="hideCompentMenu">
         <el-dialog
             title="发布"
             :visible.sync="$parent.publishPopVisible"
@@ -14,7 +14,6 @@
         </el-dialog>
         <div
             class="edit-view"
-            tabindex="0"
             @keydown.space.prevent="handleSpaceDown"
             @keyup.space.prevent="handleSpaceUp"
             @mousedown.stop="handleActivated(-1)"
@@ -23,7 +22,8 @@
                 :content-layout="{ left: 250,top: 50 }"
                 :is-scale-revise="true"
                 :v-model="presetLine"
-                :position="'absolute'"
+                :position="'relative'"
+                style="width: 100%;height: 100%!important;"
             >
                 <vue-draggable-resizable
                     :style="wrapStyle"
@@ -195,15 +195,21 @@ export default {
 
 <style lang="scss" scoped>
 $lighterBlue: #409eff;
-.edit-view {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  overflow: visible;
-  outline: 0;
+.canvasBox{
+    height: 100%;
+    .edit-view {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        overflow: visible;
+        outline: 0;
+    }
 }
 
+/deep/.vue-ruler-wrapper{
+    overflow: scroll;
+}
 .screen-box {
   position: relative;
   background: #ffffff;

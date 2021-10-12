@@ -9,18 +9,18 @@
             <el-form-item label="时间格式">
                 <el-select v-model="config.format" placeholder="请选择">
                     <el-option
-                    v-for="item in dicOption.format"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                    </el-option>
+                        v-for="item in dicOption.format"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                    />
                 </el-select>
             </el-form-item>
             <el-form-item label="字体行高">
-                <el-input v-model="config.lineHeight"></el-input>
+                <el-input v-model="config.lineHeight" />
             </el-form-item>
             <el-form-item label="字体大小">
-                <el-input v-model="config.fontSize"></el-input>
+                <el-input v-model="config.fontSize" />
             </el-form-item>
             <el-form-item label="字体背景">
                 <el-color-picker
@@ -37,26 +37,25 @@
             <el-form-item label="对齐方式">
                 <el-select v-model="config.textAlign" placeholder="请选择">
                     <el-option
-                    v-for="item in dicOption.textAlign"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                    </el-option>
+                        v-for="item in dicOption.textAlign"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                    />
                 </el-select>
             </el-form-item>
             <el-form-item label="文字粗细">
                 <el-select v-model="config.fontWeight" placeholder="请选择">
                     <el-option
-                    v-for="item in dicOption.fontWeight"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                    </el-option>
+                        v-for="item in dicOption.fontWeight"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                    />
                 </el-select>
             </el-form-item>
         </el-form>
-        
-        
+
     </div>
 </template>
 
@@ -65,16 +64,16 @@ import { dicOption } from '../config'
 export default {
     name: 'DatetimeConfig',
     inject: ['CElement'],
+    data() {
+        return {
+            dicOption: dicOption
+        }
+    },
     computed: {
         config() {
             return this.CElement().data.config
         }
     },
-    data () {
-    return {
-      dicOption: dicOption
-    }
-  },
     methods: {
         changeData() {
 
