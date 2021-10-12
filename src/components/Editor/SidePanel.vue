@@ -161,6 +161,11 @@ export default {
                             name: '文本',
                             img: require('@/assets/img/charts/text.png'),
                         },
+                        {
+                            id: 'datetime',
+                            name: '实时时间',
+                            img: require('@/assets/img/temperature.png'),
+                        },
                     ],
                 },
                 picture: {

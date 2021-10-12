@@ -7,6 +7,7 @@ import imageConfig from './image'
 import borderConfig from './border'
 import tableConfig from './table'
 import weatherTimeConfig from './weatherTime'
+import datetimeConfig from './datetime'
 export default {
     components: {
         background,
@@ -16,6 +17,7 @@ export default {
         imageConfig,
         borderConfig,
         tableConfig,
-        weatherTimeConfig
+        weatherTimeConfig,
+        datetimeConfig
     }
 }

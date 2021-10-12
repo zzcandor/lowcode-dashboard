@@ -57,6 +57,7 @@ export default {
             border:'边框',
             table:'表格',
             weatherTime:'天气时间',
+            datetime:'实时时间',
         },
     };
   },
