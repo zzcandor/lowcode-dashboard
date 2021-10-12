@@ -7,12 +7,12 @@
             size="mini"
         >
             <dataBuild :active-obj="config" />
-<!--            <vue-json-editor-->
-<!--                v-model="config"-->
-<!--                mode="code"-->
-<!--                :show-btns="false"-->
-<!--                @json-save="handleChartDataChange"-->
-<!--            />-->
+            <!--            <vue-json-editor-->
+            <!--                v-model="config"-->
+            <!--                mode="code"-->
+            <!--                :show-btns="false"-->
+            <!--                @json-save="handleChartDataChange"-->
+            <!--            />-->
             <el-form-item label="表行数">
                 <el-input v-model="config.rowNum" />
             </el-form-item>

@@ -5,6 +5,7 @@ import cImage from './cImagecontainer'
 import cMask from './cMask'
 import cText from './cTextcontainer'
 import cTable from './cTable'
+import cDatetime from './datetime'
 export default {
     components: {
         cWeatherTime,
@@ -13,5 +14,6 @@ export default {
         cMask,
         cText,
         cTable,
+        cDatetime
     }
 }

@@ -123,12 +123,26 @@ const chart = {
                         time: '16:55:55',
                         date: '2021/08/02',
                         temperature: '33',
-                        temperatureUrl: '../../assets/img/temperature.png',
-                        weatherUrl: '../../assets/img/temperature.png',
+                        temperatureUrl: require('@/assets/img/temperature.png'),
+                        weatherUrl: require('@/assets/img/temperature.png'),
                         weather: '多云',
                         airQuality: '雾霾'
                     }
                 }
+            } else if (componentType === 'datetime') {
+                initData = {
+                    type: "datetime",
+                    config: {
+                        format: "yyyy-MM-dd hh:mm:ss",
+                        color: "#fff",
+                        lineHeight: 30,
+                        textIndent: 2,
+                        backgroundColor: "rgba(100,100,0,0.5)",
+                        textAlign: "left",
+                        fontSize: 24,
+                        fontWeight: "normal",
+                    }
+                };
             } else if (componentType === 'gauge') {
                 initData = gaugeConfig
             } else {

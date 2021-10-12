@@ -1,44 +1,42 @@
 
 <template>
-    <div class="weather-con">
+    <div class="weather-con" :style="{ background: valueData.bgcolor }">
         <div class="weather-pm">
             <span>PM2.5</span>
-            <span>{{ valueData.airQuality }}</span>
+            <span>{{ valueData.data.datacon.airQuality }}</span>
         </div>
         <div class="weather-data">
             <div class="flex-item">
                 <img
-                    src="../../assets/img/temperature.png"
+                    :src="valueData.data.datacon.weatherUrl"
                     alt=""
                 />
-                <span class="weather">{{ valueData.weather }}</span>
+                <span class="weather">{{ valueData.data.datacon.weather }}</span>
             </div>
             <div class="flex-item">
                 <img
-
-                    src="../../assets/img/temperature.png"
+                    :src="valueData.data.datacon.temperatureUrl"
                     alt=""
                 />
-                <span class="temperature">{{ valueData.temperature }}℃</span>
+                <span class="temperature">{{ valueData.data.datacon.temperature }}℃</span>
             </div>
             <div class="dateTime-item">
-                <p class="time">{{ valueData.time }}</p>
-                <p class="date">{{ valueData.date }}</p>
+                <p class="time">{{ valueData.data.datacon.time }}</p>
+                <p class="date">{{ valueData.data.datacon.date }}</p>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-/* eslint-disable */
 export default {
     props: ['item'],
-    computed:{
-        valueData(){
-            return this.item.data.datacon
+    computed: {
+        valueData() {
+            return this.item
         }
     }
-};
+}
 </script>
 
 <style lang="scss">
