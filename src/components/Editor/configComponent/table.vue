@@ -7,12 +7,23 @@
             size="mini"
         >
             <dataBuild :active-obj="config" />
-            <!--            <vue-json-editor-->
-            <!--                v-model="config"-->
-            <!--                mode="code"-->
-            <!--                :show-btns="false"-->
-            <!--                @json-save="handleChartDataChange"-->
-            <!--            />-->
+            <div class="title">
+                表行数
+            </div>
+            <div style="margin-bottom: 15px;">
+                <el-table :data="config.header">
+                    <el-table-column prop="index" label="名称">
+                        <template slot-scope="scope">{{ scope.row }}</template>
+                    </el-table-column>
+                    <el-table-column prop="" label="操作">
+                        <template slot-scope="scope">
+                            <el-button type="text" size="small" @click="delTableHeader(scope.$index)">删除</el-button>
+                            <el-button type="text" size="small" @click="addTableHeader(scope.$index)">增加</el-button>
+                        </template>
+
+                    </el-table-column>
+                </el-table>
+            </div>
             <el-form-item label="表行数">
                 <el-input v-model="config.rowNum" />
             </el-form-item>
@@ -81,6 +92,19 @@ export default {
         }
     },
     methods: {
+        // 删除表头
+        delTableHeader(index) {
+            console.log(index)
+            this.config.header.splice(index, 1)
+        },
+        addTableHeader(index) {
+            this.$prompt('请输入表头名', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+            }).then(({ value }) => {
+                this.config.header.splice(index, 0, value)
+            })
+        },
         handleChartDataChange(val) {
             console.log(val)
         },

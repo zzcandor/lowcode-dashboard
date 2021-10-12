@@ -30,7 +30,12 @@
 
 <script>
 export default {
-    props: ['item'],
+    props: {
+        item: {
+            type: Object,
+            default: () => ({})
+        }
+    },
     computed: {
         valueData() {
             return this.item

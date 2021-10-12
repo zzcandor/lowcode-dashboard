@@ -10,7 +10,12 @@
 import dayjs from 'dayjs'
 export default {
     name: 'Datetime',
-    props: ['item'],
+    props: {
+        item: {
+            type: Object,
+            default: () => ({})
+        }
+    },
     data() {
         return {
             date: new Date()
@@ -21,7 +26,6 @@ export default {
             return this.item.data.config
         },
         nowDate() {
-            
             if (this.config.format === 'day') {
                 return '星期' + dayjs().mWeek
             }

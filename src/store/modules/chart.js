@@ -112,6 +112,7 @@ const chart = {
                         indexHeader: '#',
                         carousel: 'single',
                         hoverPause: true,
+                        time: 0,
                     }
                 }
             } else if (componentType === 'weatherTime') {
@@ -131,18 +132,18 @@ const chart = {
                 }
             } else if (componentType === 'datetime') {
                 initData = {
-                    type: "datetime",
+                    type: 'datetime',
                     config: {
-                        format: "yyyy-MM-dd hh:mm:ss",
-                        color: "#fff",
+                        format: 'yyyy-MM-dd hh:mm:ss',
+                        color: '#fff',
                         lineHeight: 30,
                         textIndent: 2,
-                        backgroundColor: "rgba(100,100,0,0.5)",
-                        textAlign: "left",
+                        backgroundColor: 'rgba(100,100,0,0.5)',
+                        textAlign: 'left',
                         fontSize: 24,
-                        fontWeight: "normal",
+                        fontWeight: 'normal',
                     }
-                };
+                }
             } else if (componentType === 'gauge') {
                 initData = gaugeConfig
             } else {
