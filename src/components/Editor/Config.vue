@@ -85,6 +85,7 @@ export default {
 <style lang="scss">
   .el-input__inner {
     background-color: #262c33;
+      color: #fff;
   }
   .vdr.active:before {
     outline: 2px dashed #3a8ee6 !important;
