@@ -112,6 +112,7 @@ const chart = {
                         indexHeader: '#',
                         carousel: 'single',
                         hoverPause: true,
+                        time: 0,
                     }
                 }
             } else if (componentType === 'weatherTime') {

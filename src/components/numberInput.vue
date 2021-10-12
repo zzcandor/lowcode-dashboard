@@ -70,14 +70,12 @@ export default {
             } else {
                 this.val = this.tempVal
             }
-            this.val = Number(this.val)
             this.$emit('input', this.val)
         },
         blurVal() {
             const reg2 = /^\d+.$/
             if (reg2.test(this.value)) {
                 this.val = this.val.split('.')[0]
-                this.val = Number(this.val)
                 this.$emit('input', this.value)
             }
         }
