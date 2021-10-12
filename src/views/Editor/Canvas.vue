@@ -17,7 +17,7 @@
             tabindex="0"
             @keydown.space.prevent="handleSpaceDown"
             @keyup.space.prevent="handleSpaceUp"
-            @click.self="handleActivated(-1)"
+            @mousedown.stop="handleActivated(-1)"
         >
             <vue-ruler-tool
                 :content-layout="{ left: 250,top: 50 }"
@@ -42,7 +42,6 @@
                         ref="screen"
                         class="screen"
                         :style="screenStyle"
-                        @click.self="handleActivated(-1)"
                     >
                         <draggable
                             :animation="340"
