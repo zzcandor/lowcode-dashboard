@@ -27,7 +27,7 @@ export default {
         },
         nowDate() {
             if (this.config.format === 'day') {
-                return '星期' + dayjs().mWeek
+                return '星期' + dayjs().day()
             }
             const format = (this.config.format || 'yyyy-MM-dd hh:mm:ss')
                 .replace('dd', 'DD')

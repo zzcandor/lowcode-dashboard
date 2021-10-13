@@ -15,6 +15,20 @@ export const dicOption = {
         { label: '内置图片', value: 'img' },
         { label: '内置边框', value: 'border' }
     ],
+    linkTarget: [
+        { label: '新窗口', value: '_blank' },
+        { label: '本窗口', value: '_self' }
+    ],
+    airQuality: [
+        { label: '优', value: '优' },
+        { label: '良', value: '良' },
+        { label: '雾霾', value: '雾霾' }
+    ],
+    weather: [
+        { label: '晴', value: '晴' },
+        { label: '小雨', value: '小雨' },
+        { label: '多云', value: '多云' }
+    ],
     textAlign: [
         { label: '居中', value: 'center' },
         { label: '左对齐', value: 'left' },
@@ -76,8 +90,24 @@ export const dicOption = {
     titleList: ['bar', 'pie', 'line', 'radar', 'funnel'],
     labelList: ['bar', 'line', 'pie', 'radar', 'scatter'],
     legendList: ['bar', 'pie', 'line', 'radar', 'funnel'],
-    colorList: ['bar', 'pie', 'line', 'gauge', 'funnel', 'scatter', 'radar'],
-    tipList: ['bar', 'pie', 'line', 'gauge', 'funnel', 'scatter', 'radar'],
+    colorList: [
+        'bar',
+        'pie',
+        'line',
+        'gauge',
+        'funnel',
+        'scatter',
+        'radar'
+    ],
+    tipList: [
+        'bar',
+        'pie',
+        'line',
+        'gauge',
+        'funnel',
+        'scatter',
+        'radar'
+    ],
     postionList: ['bar', 'line', 'pictorialbar'],
     formatterList: [
         'bar',

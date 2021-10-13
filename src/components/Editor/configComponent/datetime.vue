@@ -55,7 +55,6 @@
                 </el-select>
             </el-form-item>
         </el-form>
-
     </div>
 </template>
 
@@ -74,17 +73,13 @@ export default {
             return this.CElement().data.config
         }
     },
-    methods: {
-        changeData() {
-
-        },
-    }
 }
 </script>
 
 <style scoped lang="scss">
 /deep/.el-form-item__label{
     color: #fff;
+    font-weight: bold;
 }
 /deep/.el-input__inner{
     color: #fff;
