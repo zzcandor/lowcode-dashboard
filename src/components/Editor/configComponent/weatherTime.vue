@@ -1,34 +1,65 @@
 <template>
     <div>
         <div class="config-box">
-            <vue-json-editor
-                v-model="currentElement.data.datacon"
-                mode="code"
-                :show-btns="true"
-                @json-save="handleChartDataChange"
-            />
+            <el-form
+                class="config-box"
+                label-width="100px"
+                label-position="left"
+                size="mini"
+            >
+                <el-form-item label="空气质量">
+                    <el-select v-model="config.airQuality" placeholder="请选择">
+                        <el-option
+                            v-for="item in dicOption.airQuality"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value"
+                        />
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="天气">
+                    <el-select v-model="config.weather" placeholder="请选择">
+                        <el-option
+                            v-for="item in dicOption.weather"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value"
+                        />
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="温度">
+                    <el-input v-model="config.temperature" />
+                </el-form-item>
+            </el-form>
+
         </div>
     </div>
 </template>
 
 <script>
+import { dicOption } from '../config'
 export default {
     name: 'WeatherTimeConfig',
     inject: ['CElement'],
-    computed: {
-        currentElement() {
-            return this.CElement()
+    data() {
+        return {
+            dicOption: dicOption
         }
     },
-    methods: {
-        handleChartDataChange(val) {
-            console.log(val)
-            // this.currentElement.data.config = {...this.currentElement.data.config}
+    computed: {
+        config() {
+            return this.CElement().data.datacon
         }
     }
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+/deep/.el-form-item__label{
+    color: #fff;
+    font-weight: bold;
+}
+/deep/.el-input__inner{
+    color: #fff;
+}
 </style>

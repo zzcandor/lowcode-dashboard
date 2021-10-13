@@ -59,7 +59,7 @@ const chart = {
                         openlink: false,
                         linkTarget: '_blank',
                         linkHref: '',
-                        lineHeight: 30,
+                        lineHeight: 50,
                         backgroundColor: 'rgba(100,100,0,0.5)',
                         textAlign: 'left',
                     }

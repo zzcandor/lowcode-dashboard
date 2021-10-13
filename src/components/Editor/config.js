@@ -19,6 +19,16 @@ export const dicOption = {
         { label: '新窗口', value: '_blank' },
         { label: '本窗口', value: '_self' }
     ],
+    airQuality: [
+        { label: '优', value: '优' },
+        { label: '良', value: '良' },
+        { label: '雾霾', value: '雾霾' }
+    ],
+    weather: [
+        { label: '晴', value: '晴' },
+        { label: '小雨', value: '小雨' },
+        { label: '多云', value: '多云' }
+    ],
     textAlign: [
         { label: '居中', value: 'center' },
         { label: '左对齐', value: 'left' },

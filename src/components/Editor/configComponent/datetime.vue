@@ -79,6 +79,7 @@ export default {
 <style scoped lang="scss">
 /deep/.el-form-item__label{
     color: #fff;
+    font-weight: bold;
 }
 /deep/.el-input__inner{
     color: #fff;
