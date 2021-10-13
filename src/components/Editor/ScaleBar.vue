@@ -10,7 +10,7 @@
     :resizable="false")
   -->
         <div class="control-bar"><i class="btn el-icon-minus" @click="zoomOut" />
-            <div class="scale-mount">{{ scale * 100 }}%</div>
+            <div class="scale-mount">{{ value * 100 }}%</div>
             <i class="btn el-icon-plus" @click="zoomIn" />
         </div>
     </div>
@@ -18,25 +18,31 @@
 
 <script>
 export default {
+    props: {
+        value: {
+            type: Number
+        }
+    },
     data() {
         return {
-            scale: 0.6,
         }
     },
     watch: {
         scale() {
-            this.$emit('update:scale', this.scale)
+
         },
     },
     methods: {
         zoomOut() {
-            if (this.scale > 0.1) {
-                this.scale = parseFloat((this.scale - 0.1).toFixed(1))
+            if (this.value > 0.1) {
+                const scale = parseFloat((this.value - 0.1).toFixed(1))
+                this.$emit('input', scale)
             }
         },
         zoomIn() {
-            if (this.scale < 1) {
-                this.scale = parseFloat((this.scale + 0.1).toFixed(1))
+            if (this.value < 1) {
+                const scale = parseFloat((this.value + 0.1).toFixed(1))
+                this.$emit('input', scale)
             }
         },
     },
