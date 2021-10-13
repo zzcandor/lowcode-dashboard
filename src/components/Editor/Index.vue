@@ -10,10 +10,10 @@
             <Config />
         </div>
         <div class="scale-view" :class="{ preview: preview }">
-            <ScaleBar @update:scale="changeScale" />
+            <ScaleBar v-model="scale" />
         </div>
         <div class="main-view">
-            <router-view ref="screenContainer" :scale="scale" />
+            <router-view ref="screenContainer" :scale="scale" @update:scale="changeScale" />
         </div>
     </div>
 </template>

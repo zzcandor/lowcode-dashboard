@@ -17,6 +17,7 @@
             @keydown.space.prevent="handleSpaceDown"
             @keyup.space.prevent="handleSpaceUp"
             @mousedown.stop="handleActivated(-1)"
+            @wheel="handleWheel"
         >
             <vue-ruler-tool
                 :content-layout="{ left: 250,top: 50 }"
@@ -149,6 +150,16 @@ export default {
         }
     },
     methods: {
+        handleWheel(e) {
+            if (e.ctrlKey || e.metaKey) {
+                e.preventDefault()
+                const nextScale = parseFloat(
+                    Math.max(0.2, this.scale - e.deltaY / 500).toFixed(2)
+                )
+                // this.scale = nextScale;
+                this.$emit('update:scale', nextScale)
+            }
+        },
         // 右键菜单
         handleContextMenu(e, item = {}, index) {
             this.$nextTick(() => {
