@@ -24,7 +24,7 @@
                 :is-scale-revise="true"
                 :v-model="presetLine"
                 :position="'relative'"
-                style="width: 100%;height: 100%!important;"
+                style="width: 200%;height: 100%!important;"
             >
                 <vue-draggable-resizable
                     :style="wrapStyle"
@@ -208,19 +208,17 @@ export default {
 $lighterBlue: #409eff;
 .canvasBox{
     height: 100%;
+
     .edit-view {
         position: relative;
         width: 100%;
         height: 100%;
         box-sizing: border-box;
-        overflow: visible;
+        overflow: scroll;
         outline: 0;
     }
 }
 
-/deep/.vue-ruler-wrapper{
-    overflow: scroll;
-}
 .screen-box {
   position: relative;
   background: #ffffff;

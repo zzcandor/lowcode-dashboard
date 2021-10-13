@@ -3,8 +3,8 @@ const chart = {
     state: {
         chartData: {
             elements: [],
-            w: 500,
-            h: 500
+            w: 1920,
+            h: 900
         },
         currentElementIndex: -1,
     },
