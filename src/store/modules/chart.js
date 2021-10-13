@@ -58,7 +58,10 @@ const chart = {
                         scrollSpeed: 50,
                         openlink: false,
                         linkTarget: '_blank',
-                        linkHref: ''
+                        linkHref: '',
+                        lineHeight: 30,
+                        backgroundColor: 'rgba(100,100,0,0.5)',
+                        textAlign: 'left',
                     }
                 }
             } else if (componentType === 'image') {

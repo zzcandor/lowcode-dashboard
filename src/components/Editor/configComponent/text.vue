@@ -143,6 +143,25 @@
                 label-position="left"
                 size="mini"
             >
+                <el-form-item label="字体行高">
+                    <el-input v-model="currentElement.data.datacon.lineHeight" />
+                </el-form-item>
+                <!-- <el-form-item label="字体背景">
+                    <el-color-picker
+                        v-model="currentElement.data.datacon.backgroundColor"
+                        show-alpha="show-alpha"
+                    />
+                </el-form-item> -->
+                <el-form-item label="对齐方式">
+                    <el-select v-model="currentElement.data.datacon.textAlign" placeholder="请选择">
+                        <el-option
+                            v-for="item in dicOption.textAlign"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value"
+                        />
+                    </el-select>
+                </el-form-item>
                 <el-collapse accordion>
                     <el-collapse-item title="跑马灯设置">
                         <el-form-item label="开启">

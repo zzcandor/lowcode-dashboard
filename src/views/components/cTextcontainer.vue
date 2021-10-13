@@ -53,6 +53,9 @@ export default {
                 fontStyle: this.item.data.datacon.italic ? 'italic' : 'normal',
                 color: this.item.data.datacon.color,
                 fontSize: this.item.data.datacon.fontSize + 'px',
+                textAlign: this.item.data.datacon.textAlign,
+                lineHeight: (this.item.data.datacon.lineHeight || 30) + 'px',
+                // backgroundColor: this.item.data.datacon.backgroundColor,
                 textDecoration: 'none',
                 textStroke: this.item.data.datacon.stroke
                     ? this.item.data.datacon.strokeSize +
