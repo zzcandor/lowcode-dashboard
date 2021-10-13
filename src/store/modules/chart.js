@@ -54,7 +54,12 @@ const chart = {
                         shadow: false,
                         shadowColor: '#ff0000',
                         shadowBlur: 10,
-                    },
+                        scroll: false,
+                        scrollSpeed: 50,
+                        openlink: false,
+                        linkTarget: '_blank',
+                        linkHref: ''
+                    }
                 }
             } else if (componentType === 'image') {
                 initData = {
@@ -127,7 +132,8 @@ const chart = {
                         temperatureUrl: require('@/assets/img/temperature.png'),
                         weatherUrl: require('@/assets/img/temperature.png'),
                         weather: '多云',
-                        airQuality: '雾霾'
+                        airQuality: '雾霾',
+                        backgroundColor: 'rgba(100,100,0,0.5)',
                     }
                 }
             } else if (componentType === 'datetime') {

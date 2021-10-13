@@ -1,6 +1,6 @@
 
 <template>
-    <div class="weather-con" :style="{ background: valueData.bgcolor }">
+    <div class="weather-con" :style="{ background: valueData.data.datacon.backgroundColor }">
         <div class="weather-pm">
             <span>PM2.5</span>
             <span>{{ valueData.data.datacon.airQuality }}</span>
@@ -21,14 +21,15 @@
                 <span class="temperature">{{ valueData.data.datacon.temperature }}℃</span>
             </div>
             <div class="dateTime-item">
-                <p class="time">{{ valueData.data.datacon.time }}</p>
-                <p class="date">{{ valueData.data.datacon.date }}</p>
+                <p class="time">{{ nowtime }}</p>
+                <p class="date">{{ nowdate }}</p>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import dayjs from 'dayjs'
 export default {
     props: {
         item: {
@@ -36,11 +37,27 @@ export default {
             default: () => ({})
         }
     },
+    data() {
+        return {
+            date: new Date()
+        }
+    },
     computed: {
         valueData() {
             return this.item
-        }
-    }
+        },
+        nowdate() {
+            return dayjs(this.date).format('YYYY-MM-DD')
+        },
+        nowtime() {
+            return dayjs(this.date).format('hh:mm:ss')
+        },
+    },
+    created() {
+        setInterval(() => {
+            this.date = new Date()
+        }, 1000)
+    },
 }
 </script>
 
