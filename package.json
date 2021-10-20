@@ -25,6 +25,7 @@
     "koa-static": "^5.0.0",
     "koa2-cors": "^2.0.6",
     "mockjs": "^1.0.1-beta3",
+    "monaco-editor": "0.21.3",
     "mongoose": "^5.7.5",
     "v-charts": "^1.19.0",
     "vue": "^2.6.6",

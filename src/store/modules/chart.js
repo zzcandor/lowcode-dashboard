@@ -1,4 +1,22 @@
-import chartsConfig, { gaugeConfig } from '@/config/charts'
+import chartsConfig, {gaugeConfig} from '@/config/charts'
+
+class baseData {
+    constructor({type, dataConfig, datacon}) {
+        this.type = type //类型
+        this.dataConfig = dataConfig || {
+            dataType: 1,//数据类型，1是静态，2是api
+            refreshTime: '',//刷新时间
+            url: '',//接口地址
+            query: '',//接口参数
+            requestType: '',//请求类型
+            dataFormat: data => {
+                //数据处理
+            }
+        } //数据相关
+        this.datacon = datacon || {}//组件的配置，一般把data存这里
+    }
+}
+
 const chart = {
     state: {
         chartData: {
@@ -34,7 +52,7 @@ const chart = {
         },
     },
     actions: {
-        handleAddComponentFromIcon({ commit, state }, componentType) {
+        handleAddComponentFromIcon({commit, state}, componentType) {
             let initData = {}
             console.log(componentType)
 
@@ -91,38 +109,39 @@ const chart = {
                     bgcolor: 'rgba(192,196,204,1)',
                 }
             } else if (componentType === 'table') {
-                initData = {
-                    type: 'table',
-                    config: {
-                        header: ['列1', '列2', '列3'],
-                        data: [
-                            ['行1列1', '行1列2', '行1列3'],
-                            ['行2列1', '行2列2', '行2列3'],
-                            ['行3列1', '行3列2', '行3列3'],
-                            ['行4列1', '行4列2', '行4列3'],
-                            ['行5列1', '行5列2', '行5列3'],
-                            ['行6列1', '行6列2', '行6列3'],
-                            ['行7列1', '行7列2', '行7列3'],
-                            ['行8列1', '行8列2', '行8列3'],
-                            ['行9列1', '行9列2', '行9列3'],
-                            ['行10列1', '行10列2', '行10列3']
-                        ],
-                        dataType: 1,
-                        rowNum: 5,
-                        headerBGC: '#00BAFF',
-                        oddRowBGC: '#003B51',
-                        evenRowBGC: '#0A2732',
-                        waitTime: 2000,
-                        headerHeight: 35,
-                        columnWidth: [],
-                        align: [],
-                        index: false,
-                        indexHeader: '#',
-                        carousel: 'single',
-                        hoverPause: true,
-                        time: 0,
+                initData = new baseData(
+                    {
+                        type: 'table',
+                        datacon:{
+                            header: ['列1', '列2', '列3'],
+                            data: [
+                                ['行1列1', '行1列2', '行1列3'],
+                                ['行2列1', '行2列2', '行2列3'],
+                                ['行3列1', '行3列2', '行3列3'],
+                                ['行4列1', '行4列2', '行4列3'],
+                                ['行5列1', '行5列2', '行5列3'],
+                                ['行6列1', '行6列2', '行6列3'],
+                                ['行7列1', '行7列2', '行7列3'],
+                                ['行8列1', '行8列2', '行8列3'],
+                                ['行9列1', '行9列2', '行9列3'],
+                                ['行10列1', '行10列2', '行10列3']
+                            ],
+                            rowNum: 5,
+                            headerBGC: '#00BAFF',
+                            oddRowBGC: '#003B51',
+                            evenRowBGC: '#0A2732',
+                            waitTime: 2000,
+                            headerHeight: 35,
+                            columnWidth: [],
+                            align: [],
+                            index: false,
+                            indexHeader: '#',
+                            carousel: 'single',
+                            hoverPause: true,
+                            time: 0,
+                        }
                     }
-                }
+                )
             } else if (componentType === 'weatherTime') {
                 initData = {
                     type: 'weatherTime',

@@ -56,7 +56,7 @@ export default {
     name: 'RsScrollBoard',
     mixins: [autoResize],
     props: {
-        config: {
+        item: {
             type: Object,
             default: () => ({})
         }
@@ -182,7 +182,7 @@ export default {
         }
     },
     watch: {
-        config: {
+        "item.data.datacon": {
             handler: function(val, oldVal) {
                 const { stopAnimation, calcData } = this
                 stopAnimation()
@@ -247,8 +247,8 @@ export default {
             animation(true)
         },
         mergeConfig() {
-            const { config, defaultConfig } = this
-
+            const { defaultConfig } = this
+            const config = this.item.data.datacon
             this.mergedConfig = deepMerge(deepClone(defaultConfig, true), config || {})
         },
         calcHeaderData() {

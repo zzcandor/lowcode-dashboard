@@ -6,7 +6,7 @@
             label-position="left"
             size="mini"
         >
-            <dataBuild :active-obj="config" />
+            <dataBuild :active-obj="citem.dataConfig" :dataVal="config.data" />
             <div class="title">
                 表行数
             </div>
@@ -87,9 +87,13 @@ export default {
     },
     mixins: [common],
     computed: {
+        citem() {
+            return this.CElement().data
+        },
         config() {
-            return this.CElement().data.config
-        }
+            return this.citem.datacon
+        },
+
     },
     methods: {
         // 删除表头
