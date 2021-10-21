@@ -6,7 +6,7 @@
             label-position="left"
             size="mini"
         >
-            <dataBuild :active-obj="citem.dataConfig" :dataVal="config.data" />
+            <dataBuild :active-obj="citem.dataConfig" :data-val="config.data" />
             <div class="title">
                 表行数
             </div>

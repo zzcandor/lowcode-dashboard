@@ -11,7 +11,7 @@
                 <!--                <el-radio v-model="activeObj.dataType" :label="3">SQL</el-radio>-->
             </el-form-item>
             <el-form-item label="刷新时间">
-                <number-input v-model="activeObj.refreshTime"/>
+                <number-input v-model="activeObj.refreshTime" />
             </el-form-item>
             <template v-if="isApi">
                 <el-form-item label-width="0">
@@ -60,25 +60,25 @@
             >
                 <div v-show="isApi">
                     <el-form-item label="接口地址">
-                        <el-input v-model="activeObj.url"/>
+                        <el-input v-model="activeObj.url" />
                     </el-form-item>
                     <el-form-item label="请求方式">
                         <el-select v-model="activeObj.requestType" placeholder="请选择">
-                            <el-option label="GET" value="get"/>
-                            <el-option label="POST" value="post"/>
+                            <el-option label="GET" value="get" />
+                            <el-option label="POST" value="post" />
                         </el-select>
                     </el-form-item>
                     <el-form-item label="请求参数">
-                        <monacoEditor v-model="queryEditor"/>
+                        <monacoEditor v-model="queryEditor" />
                     </el-form-item>
                 </div>
                 <el-form-item label="响应数据">
-                    <monacoEditor v-model="editorVal"/>
+                    <monacoEditor v-model="editorVal" />
                 </el-form-item>
-                <el-form-item label="数据处理" v-show="isApi">
+                <el-form-item v-show="isApi" label="数据处理">
                     <div class="monacoEditor">
-                        <monacoEditor v-model="dataFormatEditor"/>
-                        <monacoEditor v-model="tip"/>
+                        <monacoEditor v-model="dataFormatEditor" />
+                        <monacoEditor v-model="tip" />
                     </div>
                 </el-form-item>
                 <el-form-item label-width="0px">
@@ -127,38 +127,6 @@ export default {
         isApi() {
             return this.activeObj.dataType === 2
         },
-    },
-    methods: {
-        getData() {
-            let value = this.dataFormatEditor;
-            if (value) {
-                try {
-                    eval('(' + value + ')')
-                    if (['query', 'data'].includes(this.type)) {
-                        value = eval('(' + value + ')')
-                    }
-                    this.activeObj.dataFormatter = value
-                } catch (error) {
-                    this.$message.error('数据格式有误')
-                }
-            }
-            this.activeObj.query = this.queryEditor
-
-            if (this.isStatic) {
-                this.activeObj.data = this.editorVal
-            }
-        },
-        handleChartDataChange(val) {
-            console.log(val)
-        },
-        handleSql() {
-            this.show = true
-            if (this.isStatic) {
-                this.editorVal = this.dataVal
-            } else {
-                this.editorVal = ''
-            }
-        }
     },
     created() {
         this.tip = `
@@ -305,6 +273,38 @@ export default {
   "zoom": 1
 }]
  `
+    },
+    methods: {
+        getData() {
+            let value = this.dataFormatEditor
+            if (value) {
+                try {
+                    eval('(' + value + ')')
+                    if (['query', 'data'].includes(this.type)) {
+                        value = eval('(' + value + ')')
+                    }
+                    this.activeObj.dataFormatter = value
+                } catch (error) {
+                    this.$message.error('数据格式有误')
+                }
+            }
+            this.activeObj.query = this.queryEditor
+
+            if (this.isStatic) {
+                this.activeObj.data = this.editorVal
+            }
+        },
+        handleChartDataChange(val) {
+            console.log(val)
+        },
+        handleSql() {
+            this.show = true
+            if (this.isStatic) {
+                this.editorVal = this.dataVal
+            } else {
+                this.editorVal = ''
+            }
+        }
     }
 }
 </script>

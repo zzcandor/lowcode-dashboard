@@ -1,19 +1,19 @@
-import chartsConfig, {gaugeConfig} from '@/config/charts'
+import chartsConfig, { gaugeConfig } from '@/config/charts'
 
-class baseData {
-    constructor({type, dataConfig, datacon}) {
-        this.type = type //类型
+class BaseData {
+    constructor({ type, dataConfig, datacon }) {
+        this.type = type // 类型
         this.dataConfig = dataConfig || {
-            dataType: 1,//数据类型，1是静态，2是api
-            refreshTime: '',//刷新时间
-            url: '',//接口地址
-            query: '',//接口参数
-            requestType: '',//请求类型
+            dataType: 1, // 数据类型，1是静态，2是api
+            refreshTime: '', // 刷新时间
+            url: '', // 接口地址
+            query: '', // 接口参数
+            requestType: '', // 请求类型
             dataFormat: data => {
-                //数据处理
+                // 数据处理
             }
-        } //数据相关
-        this.datacon = datacon || {}//组件的配置，一般把data存这里
+        } // 数据相关
+        this.datacon = datacon || {}// 组件的配置，一般把data存这里
     }
 }
 
@@ -52,7 +52,7 @@ const chart = {
         },
     },
     actions: {
-        handleAddComponentFromIcon({commit, state}, componentType) {
+        handleAddComponentFromIcon({ commit, state }, componentType) {
             let initData = {}
             console.log(componentType)
 
@@ -109,10 +109,10 @@ const chart = {
                     bgcolor: 'rgba(192,196,204,1)',
                 }
             } else if (componentType === 'table') {
-                initData = new baseData(
+                initData = new BaseData(
                     {
                         type: 'table',
-                        datacon:{
+                        datacon: {
                             header: ['列1', '列2', '列3'],
                             data: [
                                 ['行1列1', '行1列2', '行1列3'],

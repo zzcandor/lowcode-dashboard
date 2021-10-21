@@ -182,7 +182,7 @@ export default {
         }
     },
     watch: {
-        "item.data.datacon": {
+        'item.data.datacon': {
             handler: function(val, oldVal) {
                 const { stopAnimation, calcData } = this
                 stopAnimation()
