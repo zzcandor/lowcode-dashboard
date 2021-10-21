@@ -51,7 +51,7 @@
                         >
                             <vue-drag-resize
                                 v-for="(item, index) in chartData.elements"
-                                :key="index"
+                                :key="item.id"
                                 :is-active="item.active &amp;&amp; !$parent.preview"
                                 :parent-scale-x="scale"
                                 :parent-scale-y="scale"

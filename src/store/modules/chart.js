@@ -28,6 +28,8 @@ const chart = {
     },
     mutations: {
         addComponent(state, data) {
+            console.log(state.chartData.elements);
+            console.log(data);
             state.chartData.elements.unshift(data)
         },
         deleteComponent(state, index) {
@@ -186,6 +188,7 @@ const chart = {
                 bgcolor: initData.bgcolor || 'rgba(0,0,0,0)',
                 active: true,
                 data: initData,
+                id: Math.random()
             }
             commit('addComponent', component)
         }
