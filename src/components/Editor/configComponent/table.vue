@@ -6,7 +6,7 @@
             label-position="left"
             size="mini"
         >
-            <dataBuild :active-obj="citem.dataConfig" :data-val="config.data" />
+            <dataBuild :active-obj="citem.dataConfig" :data-val="config.data" @getHttpData="updateData" />
             <div class="title">
                 表行数
             </div>
@@ -89,6 +89,9 @@ export default {
     computed: {
         citem() {
             return this.CElement().data
+        },
+        dataConfig() {
+            return this.citem.dataConfig
         },
         config() {
             return this.citem.datacon

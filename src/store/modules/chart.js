@@ -28,8 +28,8 @@ const chart = {
     },
     mutations: {
         addComponent(state, data) {
-            console.log(state.chartData.elements);
-            console.log(data);
+            console.log(state.chartData.elements)
+            console.log(data)
             state.chartData.elements.unshift(data)
         },
         deleteComponent(state, index) {

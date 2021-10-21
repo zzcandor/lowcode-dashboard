@@ -43,7 +43,7 @@
                     size="mini"
                     type="primary"
                     class="block"
-                    @click="getData"
+                    @click="setData"
                 >刷新数据
                 </el-button>
             </el-form-item>
@@ -67,6 +67,7 @@
                             <el-option label="GET" value="get" />
                             <el-option label="POST" value="post" />
                         </el-select>
+                        <el-button @click="getHttpData">请求接口</el-button>
                     </el-form-item>
                     <el-form-item label="请求参数">
                         <monacoEditor v-model="queryEditor" />
@@ -85,7 +86,7 @@
                     <el-button
                         size="small"
                         type="primary"
-                        @click="getData"
+                        @click="setData"
                     >刷新数据
                     </el-button>
                 </el-form-item>
@@ -275,7 +276,10 @@ export default {
  `
     },
     methods: {
-        getData() {
+        getHttpData() {
+            this.$emit('getHttpData')
+        },
+        setData() {
             let value = this.dataFormatEditor
             if (value) {
                 try {
