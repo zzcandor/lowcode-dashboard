@@ -148,6 +148,9 @@ export default {
                     if (errno === 0) {
                         this.chartList = data.chartList
                         this.page.total = data.total
+                        this.chartList.forEach((ele, index) => {
+                            this.$set(this.chartList[index], '_menu', false)
+                        })
                     }
                 })
                 .catch(() => {})
@@ -331,7 +334,7 @@ export default {
       }
       &--add {
         height: 184px;
-        width: 258px;
+        width: 266px;
         border: 1px solid #00baff;
         font-size: 14px;
         color: #8eeeff;

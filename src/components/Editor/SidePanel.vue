@@ -161,6 +161,11 @@ export default {
                             name: '文本',
                             img: require('@/assets/img/charts/text.png'),
                         },
+                        {
+                            id: 'datetime',
+                            name: '实时时间',
+                            img: require('@/assets/img/temperature.png'),
+                        },
                     ],
                 },
                 picture: {
@@ -189,6 +194,11 @@ export default {
                         {
                             id: 'weatherTime',
                             name: '天气时间',
+                            img: require('@/assets/img/temperature.png'),
+                        },
+                        {
+                            id: 'table',
+                            name: '表格',
                             img: require('@/assets/img/temperature.png'),
                         },
                     ],

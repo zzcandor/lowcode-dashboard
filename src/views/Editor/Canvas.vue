@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="canvasBox" @click="hideCompentMenu">
         <el-dialog
             title="发布"
             :visible.sync="$parent.publishPopVisible"
@@ -14,16 +14,17 @@
         </el-dialog>
         <div
             class="edit-view"
-            tabindex="0"
             @keydown.space.prevent="handleSpaceDown"
             @keyup.space.prevent="handleSpaceUp"
-            @click.self="handleActivated(-1)"
+            @mousedown.stop="handleActivated(-1)"
+            @wheel="handleWheel"
         >
             <vue-ruler-tool
                 :content-layout="{ left: 250,top: 50 }"
                 :is-scale-revise="true"
                 :v-model="presetLine"
-                :position="'absolute'"
+                :position="'relative'"
+                style="width: 200%;height: 100%!important;"
             >
                 <vue-draggable-resizable
                     :style="wrapStyle"
@@ -38,10 +39,10 @@
                     group="componentsGroup"
                 >
                     <div
+                        id="screen"
                         ref="screen"
                         class="screen"
                         :style="screenStyle"
-                        @click.self="handleActivated(-1)"
                     >
                         <draggable
                             :animation="340"
@@ -50,7 +51,7 @@
                         >
                             <vue-drag-resize
                                 v-for="(item, index) in chartData.elements"
-                                :key="index"
+                                :key="item.id"
                                 :is-active="item.active &amp;&amp; !$parent.preview"
                                 :parent-scale-x="scale"
                                 :parent-scale-y="scale"
@@ -71,152 +72,30 @@
                                 @resizing="handleResize(item, arguments[0])"
                                 @dragging="handleDrag(item, arguments[0])"
                             >
-                                <div v-if="item.active" class="control-box">
-                                    <span
-                                        class="drawing-item-copy"
-                                        title="复制"
-                                        @click="$store.dispatch('handleAddComponentFromIcon', item.data.settings.id);"
-                                    ><i class="el-icon-copy-document" />
-                                    </span>
-                                    <span
-                                        class="drawing-item-delete"
-                                        title="删除"
-                                        @click="handleDeleteComponent(item);"
-                                    ><i class="el-icon-delete" />
-                                    </span>
-                                </div>
-                                <div
-                                    v-if="item.data.type === 'chart'"
-                                    class="filler"
-                                    :style="{
-                                        width: '100%',
-                                        height: '100%',
-                                        backgroundColor: item.bgcolor,
-                                    }"
-                                >
-                                    <ve-map
-                                        v-if="item.data.settings.type === 'map'"
-                                        :width="item.w + 'px'"
-                                        :height="item.h + 'px'"
-                                        :data="item.data.generated"
-                                        :settings="item.data.settings"
-                                        @ready-once="generateData(item)"
-                                    />
-                                    <ve-gauge
-                                        v-if="item.data.settings.type === 'gauge'"
-                                        :width="item.w + 'px'"
-                                        :height="item.h + 'px'"
-                                        :data="item.data.generated"
-                                        :settings="item.data.settings"
-                                        @ready-once="generateData(item)"
-                                    />
-                                    <ve-liquidfill
-                                        v-else-if="item.data.settings.type === 'liquidfill'"
-                                        :width="item.w + 'px'"
-                                        :height="item.h + 'px'"
-                                        :data="item.data.generated"
-                                        @ready-once="generateData(item)"
-                                    />
-                                    <ve-chart
-                                        v-else
-                                        :width="item.w + 'px'"
-                                        :height="item.h + 'px'"
-                                        :data="item.data.generated"
-                                        :settings="item.data.settings"
-                                        @ready-once="generateData(item)"
-                                    />
-                                </div>
-                                <div
-                                    v-if="item.data.type === 'text'"
-                                    class="filler"
-                                    :style="{
-                                        width: '100%',
-                                        height: '100%',
-                                        backgroundColor: item.bgcolor,
-                                    }"
-                                >
+                                <div class="box" style="width: 100%;height: 100%;" @contextmenu.prevent="handleContextMenu($event,item,index)">
                                     <div
-                                        class="textcontainer"
+                                        class="filler"
                                         :style="{
-                                            fontFamily: item.data.datacon.fontFamily,
-                                            fontWeight: item.data.datacon.bold ? 'bold' : 'normal',
-                                            fontStyle: item.data.datacon.italic ? 'italic' : 'normal',
-                                            color: item.data.datacon.color,
-                                            fontSize: item.data.datacon.fontSize + 'px',
-                                            textStroke: item.data.datacon.stroke
-                                                ? item.data.datacon.strokeSize +
-                                                    'px ' +
-                                                    item.data.datacon.strokeColor
-                                                : '0',
-                                            textShadow: item.data.datacon.shadow
-                                                ? '5px 5px ' +
-                                                    item.data.datacon.shadowBlur +
-                                                    'px ' +
-                                                    item.data.datacon.shadowColor
-                                                : 'none',
-                                        }"
-                                        v-text="item.data.datacon.text"
-                                    />
-                                </div>
-                                <div
-                                    v-if="item.data.type === 'image'"
-                                    class="filler"
-                                    :style="{
-                                        width: '100%',
-                                        height: '100%',
-                                        backgroundColor: item.bgcolor,
-                                    }"
-                                >
-                                    <div
-                                        class="imagecontainer"
-                                        :style="{
-                                            backgroundImage: `url(${item.data.datacon.img})`,
-                                            backgroundSize: item.data.datacon.imgSize,
-                                            opacity: item.data.datacon.opacity,
+                                            width: '100%',
+                                            height: '100%',
+                                            backgroundColor: item.bgcolor,
                                         }"
                                     >
-                                        <div v-show="!item.data.datacon.img" class="placeholder" />
+                                        <template v-if="item.data.type === 'chart'">
+                                            <component
+                                                :is="`ve-${item.data.settings.type}`"
+                                                :width="item.w + 'px'"
+                                                :height="item.h + 'px'"
+                                                :data="item.data.generated"
+                                                :settings="item.data.settings"
+                                                @ready-once="generateData(item)"
+                                            />
+                                        </template>
+                                        <template v-else>
+                                            <component :is="`c-${item.data.type}`" :item="item" />
+                                        </template>
+
                                     </div>
-                                </div>
-                                <div
-                                    v-if="item.data.type === 'border'"
-                                    class="filler"
-                                    :style="{
-                                        width: '100%',
-                                        height: '100%',
-                                        backgroundColor: item.bgcolor,
-                                    }"
-                                >
-                                    <div
-                                        class="bordercontainer"
-                                        :class="'border' + item.data.datacon.borderId"
-                                        :style="{ opacity: item.data.datacon.opacity }"
-                                    />
-                                </div>
-                                <div
-                                    v-if="item.data.type === 'mask'"
-                                    class="filler"
-                                    :style="{
-                                        width: '100%',
-                                        height: '100%',
-                                        backgroundColor: item.bgcolor,
-                                    }"
-                                >
-                                    <div
-                                        class="bordercontainer"
-                                        :style="{ opacity: item.data.datacon.opacity }"
-                                    />
-                                </div>
-                                <div
-                                    v-if="item.data.type === 'weatherTime'"
-                                    class="filler"
-                                    :style="{
-                                        width: '100%',
-                                        height: '100%',
-                                        backgroundColor: item.bgcolor,
-                                    }"
-                                >
-                                    <weatherTime :value-data="item.data.datacon" />
                                 </div>
                             </vue-drag-resize>
                             <div class="mock" :class="{ front: screenDraggable }" />
@@ -225,17 +104,25 @@
                 </vue-draggable-resizable>
             </vue-ruler-tool>
         </div>
+        <contentMenu ref="contentmenu" />
     </div>
 </template>
 <script>
 import draggable from 'vuedraggable'
-import weatherTime from '../components/weatherTime.vue'
+import cpns from '@/views/components/components'
+import contentMenu from './contentMenu.vue'
 import { mapGetters } from 'vuex'
 export default {
+    provide() {
+        return {
+            contain: this
+        }
+    },
     components: {
         draggable,
-        weatherTime
+        contentMenu,
     },
+    mixins: [cpns],
     // eslint-disable-next-line vue/require-prop-types
     props: ['scale'],
     data() {
@@ -263,6 +150,26 @@ export default {
         }
     },
     methods: {
+        handleWheel(e) {
+            if (e.ctrlKey || e.metaKey) {
+                e.preventDefault()
+                const nextScale = parseFloat(
+                    Math.max(0.2, this.scale - e.deltaY / 500).toFixed(2)
+                )
+                // this.scale = nextScale;
+                this.$emit('update:scale', nextScale)
+            }
+        },
+        // 右键菜单
+        handleContextMenu(e, item = {}, index) {
+            this.$nextTick(() => {
+                this.$refs.contentmenu.show(e.clientX, e.clientY, item, index)
+            })
+        },
+        // 隐藏菜单
+        hideCompentMenu() {
+            this.$refs.contentmenu.hide()
+        },
         handleSpaceDown() {
             this.screenDraggable = true
         },
@@ -272,9 +179,9 @@ export default {
         handleActivated(index) {
             this.$store.commit('setActiveComponentByIndex', index)
         },
-        handleDeleteComponent(index) {
-            this.$store.commit('deleteComponent', index)
-        },
+        // handleDeleteComponent(index) {
+        //     this.$store.commit('deleteComponent', index)
+        // },
         handleResize(widget, arg) {
             const item = widget
             item.x = arg.left
@@ -299,13 +206,17 @@ export default {
 
 <style lang="scss" scoped>
 $lighterBlue: #409eff;
-.edit-view {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  overflow: visible;
-  outline: 0;
+.canvasBox{
+    height: 100%;
+
+    .edit-view {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        overflow: scroll;
+        outline: 0;
+    }
 }
 
 .screen-box {
@@ -385,37 +296,6 @@ $lighterBlue: #409eff;
             color: #fff;
         }
 
-  }
-  .filler {
-    .textcontainer {
-      word-wrap: break-word;
-    }
-    .imagecontainer {
-      width: 100%;
-      height: 100%;
-      .placeholder {
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.3);
-      }
-    }
-    .bordercontainer {
-      width: 100%;
-      height: 100%;
-      box-sizing: border-box;
-      &.border1 {
-        border: 50px solid transparent;
-        border-image: url("./../../assets/img/borders/1.png") 50;
-      }
-      &.border2 {
-        border: 50px solid transparent;
-        border-image: url("./../../assets/img/borders/2.png") 50;
-      }
-      &.border3 {
-        border: 50px solid transparent;
-        border-image: url("./../../assets/img/borders/3.png") 50;
-      }
-    }
   }
 }
 
