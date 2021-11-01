@@ -1,37 +1,63 @@
 <template>
-    <div class="weather-con">
+    <div class="weather-con" :style="{ background: valueData.data.datacon.backgroundColor }">
         <div class="weather-pm">
             <span>PM2.5</span>
-            <span>{{ valueData.airQuality }}</span>
+            <span>{{ valueData.data.datacon.airQuality }}</span>
         </div>
         <div class="weather-data">
             <div class="flex-item">
-                <img src="../../assets/img/temperature.png" alt="" />
-                <span class="weather">{{ valueData.weather }}</span>
+                <img
+                    :src="valueData.data.datacon.weatherUrl"
+                    alt=""
+                />
+                <span class="weather">{{ valueData.data.datacon.weather }}</span>
             </div>
             <div class="flex-item">
-                <img src="../../assets/img/temperature.png" alt="" />
-                <span class="temperature">{{ valueData.temperature }}℃</span>
+                <img
+                    :src="valueData.data.datacon.temperatureUrl"
+                    alt=""
+                />
+                <span class="temperature">{{ valueData.data.datacon.temperature }}℃</span>
             </div>
             <div class="dateTime-item">
-                <p class="time">{{ valueData.time }}</p>
-                <p class="date">{{ valueData.date }}</p>
+                <p class="time">{{ nowtime }}</p>
+                <p class="date">{{ nowdate }}</p>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import dayjs from 'dayjs'
 export default {
     props: {
-        valueData: {
+        item: {
             type: Object,
-            default: function() {
-                return {};
-            }
+            default: () => ({})
         }
-    }
-};
+    },
+    data() {
+        return {
+            date: new Date()
+        }
+    },
+    computed: {
+        valueData() {
+            return this.item
+        },
+        nowdate() {
+            return dayjs(this.date).format('YYYY-MM-DD')
+        },
+        nowtime() {
+            return dayjs(this.date).format('hh:mm:ss')
+        },
+    },
+    created() {
+        setInterval(() => {
+            this.date = new Date()
+        }, 1000)
+    },
+}
 </script>
 <style lang="scss">
 .weather-con {

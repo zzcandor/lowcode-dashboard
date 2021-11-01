@@ -10,10 +10,10 @@
             <Config />
         </div>
         <div class="scale-view" :class="{ preview: preview }">
-            <ScaleBar @update:scale="changeScale" />
+            <ScaleBar v-model="scale" />
         </div>
         <div class="main-view">
-            <router-view ref="screenContainer" :scale="scale" />
+            <router-view ref="screenContainer" :scale="scale" @update:scale="changeScale" />
         </div>
     </div>
 </template>
@@ -35,6 +35,12 @@ export default {
         Config,
         ScaleBar,
     },
+    provide() {
+        return {
+            chartData: this.chartData,
+            CElement: () => this.currentElement,
+        }
+    },
     data() {
         return {
             title: '',
@@ -50,7 +56,7 @@ export default {
     computed: {
         currentElement() {
             if (this.currentElementIndex >= 0) {
-                return this.chartData.elements[this.currentElementIndex]
+                return this.chartData.elements[this.currentElementIndex] || {}
             }
             return {}
         },

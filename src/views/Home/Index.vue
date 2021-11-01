@@ -10,7 +10,7 @@
             />
             <div class="title">
                 <p>
-                    RS-Dashbord<br />
+                    红星云-Dashbord<br />
                     <small>可视化数据大屏</small>
                 </p>
             </div>

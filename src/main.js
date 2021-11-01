@@ -12,7 +12,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import http from './http'
-
+import numberInput from '@/components/numberInput'
+import monacoEditor from '@/components/monacoEditor'
+import vueJsonEditor from 'vue-json-editor'
 // import initMock from '../mock';
 
 // 需要 mock 数据时请打开注释
@@ -22,6 +24,9 @@ Vue.prototype.$http = http
 Vue.prototype.$dayjs = dayjs
 Vue.use(VCharts)
 Vue.use(ElementUI)
+Vue.component('numberInput', numberInput)
+Vue.component('monacoEditor', monacoEditor)
+Vue.component('vueJsonEditor', vueJsonEditor)
 Vue.component('VueRulerTool', VueRulerTool)
 Vue.use(dayjs)
 Vue.component('vue-draggable-resizable', VueDraggableResizable)
